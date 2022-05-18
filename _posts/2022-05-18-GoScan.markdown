@@ -1,0 +1,53 @@
+---
+title: "GoScan"
+layout: post
+date: 2022-05-18 15:07
+tag: herramienta
+image: /assets/images/GoScan.png
+headerImage: true
+projects: true
+hidden: true # don't count this post in blog pagination
+description: ""
+category: project
+externalLink: false
+---
+
+GoScan es una herramienta de red teaming que permite recopilar y analizar los activos de una compañía.
+He hecho esta herramienta como proyecto de universidad para aprender Go y red teaming.
+
+## Uso
+---
+
+### Buscar ASN y ranges IP asociados
+
+```text
+./goScan --mode SA --target TLD
+```
+
+### Dominios y subdominios
+
+Desde ip_ranges.csv
+
+```text
+./goScan --mode SO --target TLD
+```
+
+Usando la API de sonar
+
+```text
+./goScan --mode RE --target TLD
+```
+
+Se pueden usar los dos para complementar información
+
+### Escaner TCP de todos los dominios de dominios.csv
+
+```text
+./goScan --mode MS --target TLD
+```
+
+## TO DO
+
+- Rehacer toda la estrúctura del código
+- Añadir más APIs para mejorar la estabilidad e información obtenida.
+- Mejorar todos los modos para que su uso sea más útil.
