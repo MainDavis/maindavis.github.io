@@ -1,5 +1,5 @@
 ---
-title: "SQL Injection Cheat Sheet "
+title: "SQL Injection Cheat Sheet"
 layout: post
 date: 2022-05-17 15:00
 image: /assets/images/SQL_Injection.png
