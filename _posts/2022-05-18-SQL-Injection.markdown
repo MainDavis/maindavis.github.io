@@ -3,12 +3,12 @@ title: "SQL Injection"
 layout: post
 date: 2022-05-17 15:00
 image: /assets/images/SQL_Injection.png
-headerImage: false
+headerImage: true
 tag:
-- markdown
-- extra
+- web
+- hacking
+- sql
 category: blog
-author: jamesfoster
 description: Técnica de SQL Injection
 ---
 
