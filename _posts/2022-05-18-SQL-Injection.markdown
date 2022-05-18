@@ -8,6 +8,7 @@ tag:
 - sqli
 - web
 category: blog
+author: jamesfoster
 description: Técnica de SQL Injection
 ---
 
