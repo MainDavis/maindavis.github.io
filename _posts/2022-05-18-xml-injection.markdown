@@ -1,5 +1,5 @@
 ---
-title: "XML Injection"
+title: "Cheat Sheet XML Injection"
 layout: post
 date: 2022-05-17 15:00
 image: /assets/images/xmli.png
@@ -8,6 +8,7 @@ tag:
 - web
 - hacking
 - xml
+- cheat-sheet
 category: blog
 description: Técnica de XML Injection
 ---

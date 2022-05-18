@@ -1,5 +1,5 @@
 ---
-title: "SQL Injection"
+title: "Cheat Sheet SQL Injection"
 layout: post
 date: 2022-05-17 15:00
 image: /assets/images/SQL_Injection.png
@@ -8,6 +8,7 @@ tag:
 - web
 - hacking
 - sql
+- cheat-sheet
 category: blog
 description: Técnica de SQL Injection
 ---
