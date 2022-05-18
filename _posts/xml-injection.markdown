@@ -1,7 +1,7 @@
 ---
 title: "XML Injection"
 layout: post
-date: 2022-05-17 15:00
+date: 2022-05-16 15:00
 image: /assets/images/SQL_Injection.png
 headerImage: true
 tag:
