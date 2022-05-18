@@ -1,5 +1,5 @@
 ---
-title: "Cheat Sheet XML Injection"
+title: "XML Injection Cheat Sheet"
 layout: post
 date: 2022-05-17 15:00
 image: /assets/images/xmli.png
