@@ -3,11 +3,10 @@ title: "SQL Injection"
 layout: post
 date: 2022-05-18 15:00
 image: /assets/images/SQL_Injection.png
-headerImage: true
+headerImage: false
 tag:
 - sqli
 - web
-star: true
 category: blog
 description: Técnica de SQL Injection
 ---
