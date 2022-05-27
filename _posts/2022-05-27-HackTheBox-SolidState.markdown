@@ -8,6 +8,7 @@ tag:
 - htb
 - hacking
 - writeup
+- OSCP
 category: blog
 description: Writeup de SolidState
 ---
@@ -18,8 +19,6 @@ Dificultad: Medium
 OS: Linux
 
 En este writeup, voy a demostrar paso a paso como conseguir el root en la máquina SolidState.
-
-Es una máquina Linux con una dificultad media.
 
 ## Reconocimiento
 
