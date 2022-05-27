@@ -1,7 +1,7 @@
 ---
 title: "HackTheBox - SwagShop"
 layout: post
-date: 2022-05-26 18:03
+date: 2022-05-27 00:10
 image: /assets/images/SolidState/snake_logo.jpg
 headerImage: true
 tag:
