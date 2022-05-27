@@ -161,6 +161,6 @@ Aquí se puede ver como se asigna ese bit s, por lo que ya tengo SUID.
 
 ![Untitled](../assets/images/SolidState/Untitled%2013.png)
 
-Y ahora abriendo otra bash, tenemos privilegios de root y ende, la flag.
+Y ahora abriendo otra bash, tenemos privilegios de root y por ende, la flag.
 
 ![Untitled](../assets/images/SolidState/Untitled%2014.png)
