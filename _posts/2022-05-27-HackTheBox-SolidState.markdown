@@ -17,15 +17,13 @@ description: Writeup de SolidState
 Dificultad: Medium
 OS: Linux
 
-# HackTheBox - SolidState
-
 En este writeup, voy a demostrar paso a paso como conseguir el root en la máquina SolidState.
 
 Es una máquina Linux con una dificultad media.
 
 ## Reconocimiento
 
-Primero, aunque aparezca en el icono, es una buena práctica ver qué OS utiliza el objetivo. Para ello utilizaremos el comando `ping -c 1 {IP}` y viendo la ttl podemos saber contra qué nos enfrentamos de manera silenciosa (Linux:64 y Windows:128). En este vemos que es una máquina Linux.
+Primero, aunque aparezca en el icono, es una buena práctica ver qué OS utiliza el objetivo. Para ello utilizaremos el comando **ping -c 1 {IP}** y viendo la ttl podemos saber contra qué nos enfrentamos de manera silenciosa (Linux:64 y Windows:128). En este vemos que es una máquina Linux.
 
 ![Untitled](../assets/images/SolidState/Untitled.png)
 
@@ -125,7 +123,7 @@ No es problema tener una rbash ya que es muy fácil hacer bypass de la rbash, ya
 
 ![Untitled](../assets/images/SolidState/Untitled%209.png)
 
-Para encontrar qué procesos se ejecutan a la larga, voy usar el comando `ps -eo command` que te saca todos los comandos que se van ejecutando y así compararlo con uno nuevo para ver que se ejecuta a la larga.
+Para encontrar qué procesos se ejecutan a la larga, voy usar el comando **ps -eo command** que te saca todos los comandos que se van ejecutando y así compararlo con uno nuevo para ver que se ejecuta a la larga.
 
 ```bash
 #!/bin/bash
@@ -139,7 +137,7 @@ while true; do
 done
 ```
 
-Encontramos que cada x tiempo se ejecuta [tmp.py](http:/tmp.py) que está en /opt asi que vamos a mirarlo.
+Encontramos que cada x tiempo se ejecuta tmp.py que está en /opt asi que vamos a mirarlo.
 
 ![Untitled](../assets/images/SolidState/Untitled%2010.png)
 
