@@ -2,7 +2,7 @@
 title: "HackTheBox - Work"
 layout: post
 date: 2022-05-27 17:39
-image: /assets/images/work/logo.png
+image: /assets/images/worker/logo.png
 headerImage: true
 tag:
 - htb
