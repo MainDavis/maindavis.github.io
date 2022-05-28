@@ -1,7 +1,7 @@
 ---
 title: "HackTheBox - Work"
 layout: post
-date: 2022-05-26 18:03
+date: 2022-05-27 17:39
 image: /assets/images/work/logo.png
 headerImage: true
 tag:
