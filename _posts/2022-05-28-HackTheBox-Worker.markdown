@@ -1,8 +1,8 @@
 ---
-title: "HackTheBox - Work"
+title: "HackTheBox - Worker"
 layout: post
 date: 2022-05-27 17:39
-image: /assets/images/worker/logo.png
+image: /assets/images/Worker/logo.png
 headerImage: true
 tag:
 - htb
@@ -11,7 +11,7 @@ tag:
 - OSCP
 - Azure Devops
 category: blog
-description: Writeup de Work
+description: Writeup de Worker
 ---
 
 # Worker
