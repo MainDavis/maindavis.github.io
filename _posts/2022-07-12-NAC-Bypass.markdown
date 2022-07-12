@@ -1,7 +1,7 @@
 ---
 title: "NAC Bypass"
 layout: post
-date: 2022-05-17 15:00
+date: 2022-07-11 13:00
 image: /assets/images/NAC/network-logo.png
 headerImage: true
 tag:
