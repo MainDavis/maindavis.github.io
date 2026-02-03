@@ -150,6 +150,13 @@ declare module 'astro:content' {
 } & { render(): Render[".md"] };
 };
 "projects": {
+"proyecto-demo/features.md": {
+	id: "proyecto-demo/features.md";
+  slug: "proyecto-demo/features";
+  body: string;
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".md"] };
 "proyecto-demo/index.md": {
 	id: "proyecto-demo/index.md";
   slug: "proyecto-demo";
@@ -157,16 +164,9 @@ declare module 'astro:content' {
   collection: "projects";
   data: InferEntrySchema<"projects">
 } & { render(): Render[".md"] };
-"proyecto-demo/wiki/instalacion.md": {
-	id: "proyecto-demo/wiki/instalacion.md";
-  slug: "proyecto-demo/wiki/instalacion";
-  body: string;
-  collection: "projects";
-  data: InferEntrySchema<"projects">
-} & { render(): Render[".md"] };
-"proyecto-demo/wiki/uso.md": {
-	id: "proyecto-demo/wiki/uso.md";
-  slug: "proyecto-demo/wiki/uso";
+"proyecto-demo/setup.md": {
+	id: "proyecto-demo/setup.md";
+  slug: "proyecto-demo/setup";
   body: string;
   collection: "projects";
   data: InferEntrySchema<"projects">

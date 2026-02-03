@@ -1,7 +1,8 @@
 ---
-title: "Uso"
-description: "Convenciones basicas para operar el entorno."
+title: "Features"
+description: "Funciones clave para control y despliegue."
 tags: ["operacion", "guia"]
+order: 3
 ---
 
 Comandos disponibles:
@@ -12,5 +13,5 @@ Comandos disponibles:
 
 Buenas practicas:
 
-- Mantener los cambios documentados en el blog
-- Revisar los workflows de despliegue antes de publicar
+- Mantener cambios documentados en blog
+- Revisar los workflows antes de publicar

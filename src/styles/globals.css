@@ -13,11 +13,11 @@ body {
 }
 
 .border-glow {
-  box-shadow: 0 0 10px rgba(74, 222, 128, 0.3), 0 0 20px rgba(74, 222, 128, 0.1);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3), 0 0 20px rgba(239, 68, 68, 0.1);
 }
 
 .text-glow {
-  text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
 }
 
 .panel {
@@ -38,5 +38,5 @@ article li {
 }
 
 article a {
-  color: rgba(34, 211, 238, 0.9);
+  color: rgba(239, 68, 68, 0.85);
 }

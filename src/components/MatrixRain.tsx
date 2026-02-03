@@ -34,7 +34,7 @@ export default function MatrixRain() {
     const draw = () => {
       ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
       ctx.fillRect(0, 0, width, height);
-      ctx.fillStyle = "rgba(74, 222, 128, 0.35)";
+      ctx.fillStyle = "rgba(239, 68, 68, 0.25)";
 
       columns.forEach((y, i) => {
         const char = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];

@@ -3,9 +3,10 @@ title: "Bienvenida al canal operativo"
 date: 2026-02-03
 description: "Contexto del sistema, alcance del sitio y formato de las entradas."
 tags: ["operaciones", "infraestructura"]
+featured: true
 ---
 
-Este blog sirve como bitacora de trabajo. Aqui se documentan decisiones tecnicas, despliegues y notas de seguridad que afectan al entorno publico.
+Este canal sirve como bitacora de trabajo. Aqui se documentan decisiones tecnicas, despliegues y notas de seguridad que afectan al entorno publico.
 
 El objetivo es mantener una linea clara: lo que se publica debe ser util, verificable y directo. Si una entrada no aporta contexto o accion concreta, no se publica.
 

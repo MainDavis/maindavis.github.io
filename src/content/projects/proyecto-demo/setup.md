@@ -1,7 +1,8 @@
 ---
-title: "Instalacion"
+title: "Setup"
 description: "Pasos minimos para levantar el entorno local."
 tags: ["setup", "node"]
+order: 2
 ---
 
 Requisitos:

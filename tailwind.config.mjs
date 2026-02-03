@@ -6,19 +6,19 @@ export default {
       colors: {
         terminal: {
           black: "#000000",
-          green: "#4ade80",
-          cyan: "#22d3ee",
-          orange: "#fb923c",
-          yellow: "#facc15",
-          gray: "#1a1a1a",
-          border: "#2a2a2a",
+          green: "#ef4444",
+          cyan: "#9ca3af",
+          orange: "#f97316",
+          yellow: "#eab308",
+          gray: "#111111",
+          border: "#2f2f2f",
         },
       },
       fontFamily: {
         mono: ["'JetBrains Mono'", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       boxShadow: {
-        glow: "0 0 10px rgba(74, 222, 128, 0.3), 0 0 20px rgba(74, 222, 128, 0.1)",
+        glow: "0 0 10px rgba(239, 68, 68, 0.3), 0 0 20px rgba(239, 68, 68, 0.1)",
       },
     },
   },

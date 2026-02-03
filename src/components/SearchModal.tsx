@@ -4,8 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 const ITEMS = [
   { label: "Inicio", href: "/" },
   { label: "Blog", href: "/blog" },
-  { label: "Proyectos", href: "/projects" },
-  { label: "Proyecto Demo / Wiki / Instalacion", href: "/projects/proyecto-demo/wiki/instalacion" },
+  { label: "Arsenal", href: "/arsenal" },
+  { label: "About", href: "/about" },
+  { label: "Proyecto Demo / Setup", href: "/arsenal/proyecto-demo/setup" },
 ];
 
 export default function SearchModal() {

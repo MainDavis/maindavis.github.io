@@ -1,11 +1,13 @@
 ---
 title: "Proyecto Demo"
-description: "Herramienta base para pruebas de despliegue y validacion de rutas."
+description: "Toolkit base para pruebas de despliegue y validacion operativa."
 status: "en despliegue"
 tags: ["infraestructura", "ci-cd"]
+order: 1
+featured: true
 ---
 
-Proyecto de referencia para documentar la estructura de wikis, despliegues y guias operativas.
+Proyecto de referencia para documentar estructura de wiki, despliegues y guias operativas.
 
 Objetivo principal:
 
