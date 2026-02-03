@@ -1,12 +1,23 @@
 ---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("projects");
+  const projectEntries = entries.filter(
+    (entry) => !entry.slug.includes("/") || entry.slug.endsWith("/index")
+  );
+
+  return projectEntries.map((entry) => ({
+    params: { project: entry.slug.replace(/\/index$/, "") },
+  }));
+}
+
+const target = `/arsenal/${Astro.params.project}`;
 ---
 <html lang="es">
   <head>
-    <meta
-      http-equiv="refresh"
-      content={`0; url=/arsenal/${Astro.params.project}`}
-    />
-    <link rel="canonical" href={`/arsenal/${Astro.params.project}`} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
     <title>Redireccionando...</title>
   </head>
   <body>Redireccionando...</body>

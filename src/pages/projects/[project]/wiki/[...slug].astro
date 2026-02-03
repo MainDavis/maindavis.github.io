@@ -1,5 +1,4 @@
 ---
----
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -20,6 +19,7 @@ const slug = Array.isArray(Astro.params.slug)
   ? Astro.params.slug.join("/")
   : Astro.params.slug;
 const target = `/arsenal/${Astro.params.project}/${slug}`;
+---
 
 <html lang="es">
   <head>
