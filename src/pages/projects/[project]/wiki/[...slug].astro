@@ -1,15 +1,33 @@
 ---
 ---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("projects");
+  const subPages = entries.filter(
+    (entry) => entry.slug.includes("/") && !entry.slug.endsWith("/index")
+  );
+
+  return subPages.map((entry) => {
+    const [project, ...rest] = entry.slug.split("/");
+    return {
+      params: { project, slug: rest.join("/") },
+    };
+  });
+}
+
+const slug = Array.isArray(Astro.params.slug)
+  ? Astro.params.slug.join("/")
+  : Astro.params.slug;
+const target = `/arsenal/${Astro.params.project}/${slug}`;
+
 <html lang="es">
   <head>
     <meta
       http-equiv="refresh"
-      content={`0; url=/arsenal/${Astro.params.project}/${Astro.params.slug}`}
+      content={`0; url=${target}`}
     />
-    <link
-      rel="canonical"
-      href={`/arsenal/${Astro.params.project}/${Astro.params.slug}`}
-    />
+    <link rel="canonical" href={target} />
     <title>Redireccionando...</title>
   </head>
   <body>
