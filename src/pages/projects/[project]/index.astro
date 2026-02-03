@@ -1,4 +1,13 @@
 ---
-const project = Astro.params.project;
-return Astro.redirect(`/arsenal/${project}`, 301);
 ---
+<html lang="es">
+  <head>
+    <meta
+      http-equiv="refresh"
+      content={`0; url=/arsenal/${Astro.params.project}`}
+    />
+    <link rel="canonical" href={`/arsenal/${Astro.params.project}`} />
+    <title>Redireccionando...</title>
+  </head>
+  <body>Redireccionando...</body>
+</html>

@@ -1,4 +1,24 @@
 ---
-const slug = Astro.params.slug;
-return Astro.redirect(`/blog/${slug}`, 301);
 ---
+<html lang="es">
+  <head>
+    <meta
+      http-equiv="refresh"
+      content={`0; url=/blog/${
+        Array.isArray(Astro.params.slug)
+          ? Astro.params.slug.join("/")
+          : Astro.params.slug
+      }`}
+    />
+    <link
+      rel="canonical"
+      href={`/blog/${
+        Array.isArray(Astro.params.slug)
+          ? Astro.params.slug.join("/")
+          : Astro.params.slug
+      }`}
+    />
+    <title>Redireccionando...</title>
+  </head>
+  <body>Redireccionando...</body>
+</html>
