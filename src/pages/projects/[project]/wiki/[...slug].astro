@@ -1,5 +1,20 @@
 ---
-const project = Astro.params.project;
-const slug = Astro.params.slug;
-return Astro.redirect(`/arsenal/${project}/${slug}`, 301);
+# Redirect legacy wiki route to arsenal
 ---
+
+<html lang="es">
+  <head>
+    <meta
+      http-equiv="refresh"
+      content={`0; url=/arsenal/${Astro.params.project}/${Astro.params.slug}`}
+    />
+    <link
+      rel="canonical"
+      href={`/arsenal/${Astro.params.project}/${Astro.params.slug}`}
+    />
+    <title>Redireccionando...</title>
+  </head>
+  <body>
+    Redireccionando...
+  </body>
+</html>
