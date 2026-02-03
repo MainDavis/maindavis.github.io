@@ -1,0 +1,17 @@
+---
+const { command = "explore", prompt = "[0xh311x@system] ~$" } = Astro.props;
+---
+
+<div class="panel border-glow rounded-md px-5 py-4">
+  <div class="flex items-center gap-2 text-xs text-terminal-cyan/70">
+    <span class="h-2 w-2 rounded-full bg-terminal-green shadow-glow"></span>
+    <span>SYS-SESSION</span>
+  </div>
+  <div class="mt-3 flex flex-wrap items-center gap-2 text-sm text-terminal-green">
+    <span class="text-terminal-cyan/80">{prompt}</span>
+    <span class="text-terminal-green/80">{command}</span>
+  </div>
+  <div class="mt-4 text-sm text-terminal-green/80">
+    <slot />
+  </div>
+</div>

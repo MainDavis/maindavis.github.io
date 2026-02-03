@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+
+const entries = await getCollection("projects");
+
+const projects = entries
+  .filter((entry) => !entry.slug.includes("/wiki/"))
+  .map((entry) => ({
+    entry,
+    slug: entry.slug.replace(/\/index$/, ""),
+  }));
+---
+
+<BlogLayout title="~/projects" description="Catalogo de herramientas y entornos verificados.">
+  <div class="grid gap-4">
+    {projects.map(({ entry, slug }) => (
+      <a
+        href={`/projects/${slug}`}
+        class="panel border-glow rounded-md px-5 py-4 transition hover:border-terminal-green/60"
+      >
+        <div class="flex items-center justify-between text-xs text-terminal-cyan/70">
+          <span>{entry.data.status ?? "en desarrollo"}</span>
+          <span>{entry.data.tags.join(" / ") || "sin etiquetas"}</span>
+        </div>
+        <h2 class="mt-2 text-lg text-terminal-green text-glow">{entry.data.title}</h2>
+        <p class="mt-2 text-sm text-terminal-green/70">{entry.data.description}</p>
+      </a>
+    ))}
+  </div>
+</BlogLayout>

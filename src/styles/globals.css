@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-terminal-black text-terminal-green font-mono antialiased;
+}
+
+.border-glow {
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.3), 0 0 20px rgba(74, 222, 128, 0.1);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+}
+
+.panel {
+  @apply border border-terminal-border bg-terminal-black/90;
+}
+
+article p {
+  margin-bottom: 1rem;
+}
+
+article ul {
+  margin-left: 1.25rem;
+  list-style: disc;
+}
+
+article li {
+  margin-bottom: 0.35rem;
+}
+
+article a {
+  color: rgba(34, 211, 238, 0.9);
+}

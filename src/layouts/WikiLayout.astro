@@ -1,0 +1,19 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const { title, project } = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <section class="mx-auto w-full max-w-5xl">
+    <div class="panel border-glow rounded-md px-5 py-4">
+      <p class="text-xs uppercase tracking-[0.3em] text-terminal-cyan/70">
+        {project ? `Proyecto ${project}` : "Wiki"}
+      </p>
+      <h1 class="mt-2 text-xl text-terminal-green text-glow">{title}</h1>
+    </div>
+    <div class="mt-6 space-y-4 text-sm leading-relaxed text-terminal-green/90">
+      <slot />
+    </div>
+  </section>
+</BaseLayout>

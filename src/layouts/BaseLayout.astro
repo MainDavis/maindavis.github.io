@@ -1,0 +1,31 @@
+---
+import "../styles/globals.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import MatrixRain from "../components/MatrixRain.tsx";
+import SearchModal from "../components/SearchModal.tsx";
+
+const { title = "Secure Interface" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen">
+    <MatrixRain client:load />
+    <SearchModal client:load />
+    <div class="relative z-10 flex min-h-screen flex-col">
+      <Header />
+      <main class="flex-1 px-4 pb-12 pt-6 md:px-8">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

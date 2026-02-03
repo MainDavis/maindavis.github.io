@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Terminal from "../components/Terminal.astro";
+---
+
+<BaseLayout title="~/home | Secure Interface">
+  <section class="mx-auto w-full max-w-6xl space-y-8">
+    <Terminal command="explore">
+      <p>
+        Interfaz cargada. Modo de lectura seguro activado. Acceso limitado a
+        rutas publicas y repositorios verificados.
+      </p>
+    </Terminal>
+
+    <div class="grid gap-6 md:grid-cols-[2fr,1fr]">
+      <div class="panel border-glow rounded-md px-5 py-4">
+        <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-cyan/70">
+          Actividad reciente
+        </h2>
+        <ul class="mt-4 space-y-3 text-sm text-terminal-green/80">
+          <li class="flex items-center justify-between border-b border-terminal-border pb-2">
+            <span>blog/primer-bloque</span>
+            <span class="text-terminal-cyan/60">activo</span>
+          </li>
+          <li class="flex items-center justify-between border-b border-terminal-border pb-2">
+            <span>projects/proyecto-demo</span>
+            <span class="text-terminal-cyan/60">en despliegue</span>
+          </li>
+          <li class="flex items-center justify-between">
+            <span>monitor/superficie</span>
+            <span class="text-terminal-cyan/60">estable</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="panel border-glow rounded-md px-5 py-4">
+        <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-cyan/70">
+          Estado del sistema
+        </h2>
+        <div class="mt-4 space-y-2 text-sm text-terminal-green/80">
+          <p>Firewall: activo</p>
+          <p>IDS: observando</p>
+          <p>Canal: cifrado TLS 1.3</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel border-glow rounded-md px-5 py-4">
+      <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-cyan/70">
+        Rutas rapidas
+      </h2>
+      <div class="mt-4 grid gap-3 text-sm md:grid-cols-3">
+        <a
+          class="border border-terminal-border px-3 py-2 text-terminal-green/80 transition hover:border-terminal-green/70"
+          href="/blog"
+        >
+          ~/blog
+        </a>
+        <a
+          class="border border-terminal-border px-3 py-2 text-terminal-green/80 transition hover:border-terminal-green/70"
+          href="/projects"
+        >
+          ~/projects
+        </a>
+        <button
+          class="border border-terminal-border px-3 py-2 text-left text-terminal-green/80 transition hover:border-terminal-green/70"
+          data-search-trigger
+        >
+          Buscar (Ctrl+K)
+        </button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

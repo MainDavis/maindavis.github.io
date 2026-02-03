@@ -1,0 +1,34 @@
+---
+const tabs = [
+  { href: "/", label: "~/home" },
+  { href: "/blog", label: "~/blog" },
+  { href: "/projects", label: "~/projects" },
+];
+const pathname = Astro.url.pathname;
+---
+
+<header class="border-b border-terminal-border bg-terminal-black/90">
+  <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-8">
+    <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-terminal-cyan/70">
+      <span class="h-2 w-2 rounded-full bg-terminal-green shadow-glow"></span>
+      SECURE CONNECTION ESTABLISHED
+    </div>
+    <nav class="flex gap-2 text-sm">
+      {tabs.map((tab) => {
+        const isActive = pathname === tab.href || pathname.startsWith(`${tab.href}/`);
+        return (
+          <a
+            href={tab.href}
+            class={`rounded-sm border px-3 py-1 transition ${
+              isActive
+                ? "border-terminal-green text-terminal-green text-glow"
+                : "border-terminal-border text-terminal-green/70 hover:border-terminal-green/60"
+            }`}
+          >
+            {tab.label}
+          </a>
+        );
+      })}
+    </nav>
+  </div>
+</header>

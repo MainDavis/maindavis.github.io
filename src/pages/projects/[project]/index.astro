@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import WikiLayout from "../../../layouts/WikiLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("projects");
+  const projectEntries = entries.filter((entry) => !entry.slug.includes("/wiki/"));
+
+  return projectEntries.map((entry) => {
+    const project = entry.slug.replace(/\/index$/, "");
+    return {
+      params: { project },
+      props: { entry, project },
+    };
+  });
+}
+
+const { entry, project } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<WikiLayout title={entry.data.title} project={project}>
+  <Content />
+  <div class="mt-6 grid gap-3 text-sm">
+    <a
+      class="border border-terminal-border px-3 py-2 text-terminal-green/80 transition hover:border-terminal-green/70"
+      href={`/projects/${project}/wiki/instalacion`}
+    >
+      Wiki / Instalacion
+    </a>
+    <a
+      class="border border-terminal-border px-3 py-2 text-terminal-green/80 transition hover:border-terminal-green/70"
+      href={`/projects/${project}/wiki/uso`}
+    >
+      Wiki / Uso
+    </a>
+  </div>
+</WikiLayout>

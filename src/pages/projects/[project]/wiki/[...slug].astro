@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import WikiLayout from "../../../../layouts/WikiLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("projects");
+  const wikiEntries = entries.filter((entry) => entry.slug.includes("/wiki/"));
+
+  return wikiEntries.map((entry) => {
+    const [project, , ...rest] = entry.slug.split("/");
+    return {
+      params: { project, slug: rest.join("/") },
+      props: { entry, project },
+    };
+  });
+}
+
+const { entry, project } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<WikiLayout title={entry.data.title} project={project}>
+  <Content />
+</WikiLayout>
