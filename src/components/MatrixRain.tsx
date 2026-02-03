@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const CHARACTERS = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%*+-<>/\\";
+const CHARACTERS = "0123456789ABCDEF";
 
 export default function MatrixRain() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -16,6 +16,7 @@ export default function MatrixRain() {
     let width = 0;
     let height = 0;
     const fontSize = 14;
+    const speed = 0.55;
 
     const resize = () => {
       const { innerWidth, innerHeight, devicePixelRatio } = window;
@@ -34,16 +35,16 @@ export default function MatrixRain() {
     const draw = () => {
       ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
       ctx.fillRect(0, 0, width, height);
-      ctx.fillStyle = "rgba(239, 68, 68, 0.25)";
+      ctx.fillStyle = "rgba(32, 0, 0, 0.22)";
 
       columns.forEach((y, i) => {
         const char = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
         const x = i * fontSize;
         ctx.fillText(char, x, y);
-        if (y > height && Math.random() > 0.975) {
+        if (y > height && Math.random() > 0.985) {
           columns[i] = 0;
         } else {
-          columns[i] = y + fontSize;
+          columns[i] = y + fontSize * speed;
         }
       });
       animationFrame = window.requestAnimationFrame(draw);
@@ -62,7 +63,7 @@ export default function MatrixRain() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0 opacity-30"
+      className="pointer-events-none fixed inset-0 z-0 opacity-20"
       aria-hidden="true"
     />
   );

@@ -10,7 +10,7 @@ const pathname = Astro.url.pathname;
 
 <header class="border-b border-terminal-border bg-terminal-black/90">
   <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-8">
-    <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-terminal-cyan/70">
+    <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-terminal-muted/80">
       <span class="h-2 w-2 rounded-full bg-terminal-green shadow-glow"></span>
       SESSION_ACTIVE :: RED_TEAM_ENGAGEMENT
     </div>
@@ -23,7 +23,7 @@ const pathname = Astro.url.pathname;
             class={`rounded-sm border px-3 py-1 transition ${
               isActive
                 ? "border-terminal-green text-terminal-green text-glow"
-                : "border-terminal-border text-terminal-green/70 hover:border-terminal-green/60"
+                : "border-terminal-border text-terminal-muted hover:border-terminal-green hover:shadow-glow-strong"
             }`}
           >
             {tab.label}

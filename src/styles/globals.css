@@ -9,19 +9,80 @@
 }
 
 body {
-  @apply bg-terminal-black text-terminal-green font-mono antialiased;
+  @apply bg-terminal-black text-terminal-light font-mono antialiased;
 }
 
 .border-glow {
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3), 0 0 20px rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 10px rgba(255, 49, 49, 0.3), 0 0 20px rgba(255, 49, 49, 0.12);
 }
 
 .text-glow {
-  text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  text-shadow: 0 0 10px rgba(255, 49, 49, 0.55);
 }
 
 .panel {
   @apply border border-terminal-border bg-terminal-black/90;
+}
+
+.glitch {
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 8px rgba(255, 49, 49, 0.4);
+  animation: glitch-flicker 6s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.glitch::before {
+  color: rgba(255, 49, 49, 0.4);
+  transform: translate(0.5px, -0.4px);
+}
+
+.glitch::after {
+  color: rgba(255, 255, 255, 0.3);
+  transform: translate(-0.6px, 0.6px);
+}
+
+@keyframes glitch-flicker {
+  0%,
+  96%,
+  100% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 0.92;
+  }
+  98% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes glitch-slice {
+  0%,
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+  50% {
+    clip-path: inset(45% 0 40% 0);
+  }
+}
+
+.glitch::before,
+.glitch::after {
+  animation: glitch-slice 6s infinite;
 }
 
 article p {
@@ -38,5 +99,5 @@ article li {
 }
 
 article a {
-  color: rgba(239, 68, 68, 0.85);
+  color: rgba(255, 49, 49, 0.9);
 }

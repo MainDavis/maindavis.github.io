@@ -35,9 +35,12 @@ const navItems = projectEntries
     const slugPart = isIndex ? "" : normalized.slice(project.length + 1);
     const labelBase = item.data.title ?? (isIndex ? "Overview" : slugPart);
     const label = labelBase.replace(/-/g, " ");
+    const segmentLabels = slugPart ? slugPart.split("/").map((part) => part.replace(/-/g, " ")) : [];
     return {
       href: isIndex ? `/arsenal/${project}` : `/arsenal/${project}/${slugPart}`,
       label,
+      segmentLabels,
+      isIndex,
       order: item.data.order ?? 999,
       sortKey: slugPart || "index",
     };

@@ -2,35 +2,115 @@
 import BaseLayout from "./BaseLayout.astro";
 
 const { title, project, navItems = [], currentPath = "" } = Astro.props;
+
+const buildTree = (items) => {
+  const roots = [];
+  items.forEach((item) => {
+    if (item.isIndex || !item.segmentLabels?.length) {
+      roots.push({
+        label: item.label,
+        href: item.href,
+        children: [],
+        isLeaf: true,
+        order: item.order ?? 999,
+      });
+      return;
+    }
+
+    let current = roots;
+    item.segmentLabels.forEach((segment, index) => {
+      const isLast = index === item.segmentLabels.length - 1;
+      let node = current.find((entry) => entry.label === segment && !entry.isLeaf);
+      if (!node) {
+        node = {
+          label: segment,
+          href: undefined,
+          children: [],
+          isLeaf: false,
+          order: item.order ?? 999,
+        };
+        current.push(node);
+      } else {
+        node.order = Math.min(node.order ?? 999, item.order ?? 999);
+      }
+
+      if (isLast) {
+        node.children.push({
+          label: item.label,
+          href: item.href,
+          children: [],
+          isLeaf: true,
+          order: item.order ?? 999,
+        });
+      } else {
+        current = node.children;
+      }
+    });
+  });
+  return roots;
+};
+
+const sortTree = (nodes) => {
+  nodes.sort((a, b) => {
+    const orderDiff = (a.order ?? 999) - (b.order ?? 999);
+    return orderDiff !== 0 ? orderDiff : a.label.localeCompare(b.label);
+  });
+  nodes.forEach((node) => node.children && sortTree(node.children));
+  return nodes;
+};
+
+const isActiveNode = (node) =>
+  node.href === currentPath || (node.children ?? []).some((child) => isActiveNode(child));
+
+const tree = sortTree(buildTree(navItems));
+
+const renderNode = (node) => {
+  if (node.isLeaf) {
+    return (
+      <a
+        href={node.href}
+        class={`block border px-3 py-2 transition ${
+          node.href === currentPath
+            ? "border-terminal-green text-terminal-green text-glow"
+            : "border-terminal-border text-terminal-light/80 hover:border-terminal-green hover:shadow-glow-strong"
+        }`}
+      >
+        {node.label}
+      </a>
+    );
+  }
+
+  return (
+    <details class="border border-terminal-border/70 px-3 py-2" open={isActiveNode(node)}>
+      <summary class="cursor-pointer list-none text-terminal-muted/90">{node.label}</summary>
+      <div class="mt-2 space-y-2 pl-3">
+        {node.children.map((child) => (
+          <div>{renderNode(child)}</div>
+        ))}
+      </div>
+    </details>
+  );
+};
 ---
 
 <BaseLayout title={title}>
   <section class="mx-auto w-full max-w-6xl">
     <div class="panel border-glow rounded-md px-5 py-4">
-      <p class="text-xs uppercase tracking-[0.3em] text-terminal-cyan/70">
+      <p class="text-xs uppercase tracking-[0.3em] text-terminal-muted/80">
         {project ? `Proyecto ${project}` : "Wiki"}
       </p>
       <h1 class="mt-2 text-xl text-terminal-green text-glow">{title}</h1>
     </div>
     <div class="mt-6 grid gap-6 md:grid-cols-[220px,1fr]">
-      <aside class="panel border-glow h-fit rounded-md px-4 py-4 text-xs text-terminal-cyan/70 md:sticky md:top-6">
+      <aside class="panel border-glow h-fit rounded-md px-4 py-4 text-xs text-terminal-muted/80 md:sticky md:top-6">
         <div class="mb-3 uppercase tracking-[0.3em]">Sidebar Index</div>
-        <nav class="space-y-2 text-sm">
-          {navItems.map((item) => (
-            <a
-              href={item.href}
-              class={`block border px-3 py-2 transition ${
-                item.href === currentPath
-                  ? "border-terminal-green text-terminal-green text-glow"
-                  : "border-terminal-border text-terminal-green/70 hover:border-terminal-green/60"
-              }`}
-            >
-              {item.label}
-            </a>
+        <nav class="space-y-2 text-sm text-terminal-light/90">
+          {tree.map((node) => (
+            <div>{renderNode(node)}</div>
           ))}
         </nav>
       </aside>
-      <div class="space-y-4 text-sm leading-relaxed text-terminal-green/90">
+      <div class="space-y-4 text-sm leading-relaxed text-terminal-light/90">
         <slot />
       </div>
     </div>
