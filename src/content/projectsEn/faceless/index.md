@@ -2,7 +2,7 @@
 title: "Faceless"
 description: "Token impersonation and privilege escalation with OPSEC focus."
 status: "active"
-image: /images/projects/cover.svg
+image: /images/projects/faceless.png
 tags: ["red-team", "windows", "opsec", "nim"]
 order: 1
 featured: true
