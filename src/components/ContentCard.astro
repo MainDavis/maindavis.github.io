@@ -55,12 +55,17 @@ const isStringImage = typeof resolvedImage === "string";
         src={resolvedImage}
         alt={title}
         loading="lazy"
+        decoding="async"
+        fetchpriority="low"
+        width="640"
+        height="360"
       />
     ) : (
       <Image
         src={resolvedImage}
         alt={title}
         loading="lazy"
+        decoding="async"
       />
     )}
   </div>

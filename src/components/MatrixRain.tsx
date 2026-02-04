@@ -17,6 +17,7 @@ export default function MatrixRain() {
     let height = 0;
     const fontSize = 14;
     const speed = 0.55;
+    let isRunning = true;
 
     const resize = () => {
       const { innerWidth, innerHeight, devicePixelRatio } = window;
@@ -33,6 +34,7 @@ export default function MatrixRain() {
     };
 
     const draw = () => {
+      if (!isRunning) return;
       ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
       ctx.fillRect(0, 0, width, height);
       ctx.fillStyle = "rgba(32, 0, 0, 0.22)";
@@ -50,13 +52,27 @@ export default function MatrixRain() {
       animationFrame = window.requestAnimationFrame(draw);
     };
 
+    const handleVisibility = () => {
+      if (document.hidden) {
+        isRunning = false;
+        window.cancelAnimationFrame(animationFrame);
+        return;
+      }
+      if (!isRunning) {
+        isRunning = true;
+        animationFrame = window.requestAnimationFrame(draw);
+      }
+    };
+
     resize();
     animationFrame = window.requestAnimationFrame(draw);
     window.addEventListener("resize", resize);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
       window.cancelAnimationFrame(animationFrame);
       window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, []);
 

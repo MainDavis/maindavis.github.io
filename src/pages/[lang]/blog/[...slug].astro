@@ -27,7 +27,13 @@ const heroImage = post.data.image ?? "/images/fallback-blog.svg";
 
 <BlogLayout title={post.data.title} description={post.data.description}>
   <div class="post-hero border border-terminal-border/70 rounded-md">
-    <img src={heroImage} alt={post.data.title} loading="lazy" />
+    <img
+      src={heroImage}
+      alt={post.data.title}
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
   </div>
   <article class="space-y-4 text-sm leading-relaxed text-terminal-light/90">
     <Content />

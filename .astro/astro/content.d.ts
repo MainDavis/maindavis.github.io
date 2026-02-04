@@ -140,31 +140,7 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"blog": Record<string, {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "blog";
-  data: any;
-  render(): Render[".md"];
-}>;
-"blog-en": Record<string, {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "blog-en";
-  data: any;
-  render(): Render[".md"];
-}>;
-"blog-es": Record<string, {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "blog-es";
-  data: any;
-  render(): Render[".md"];
-}>;
-"blogEn": {
+		"blogEn": {
 "ReflectiveDLLInjection.md": {
 	id: "ReflectiveDLLInjection.md";
   slug: "reflectivedllinjection";
@@ -196,30 +172,6 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blogEs">
 } & { render(): Render[".md"] };
 };
-"projects": Record<string, {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "projects";
-  data: any;
-  render(): Render[".md"];
-}>;
-"projects-en": Record<string, {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "projects-en";
-  data: any;
-  render(): Render[".md"];
-}>;
-"projects-es": Record<string, {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "projects-es";
-  data: any;
-  render(): Render[".md"];
-}>;
 "projectsEn": {
 "faceless/architecture.md": {
 	id: "faceless/architecture.md";
@@ -354,7 +306,37 @@ declare module 'astro:content' {
 	};
 
 	type DataEntryMap = {
-		
+		"blog": Record<string, {
+  id: string;
+  collection: "blog";
+  data: any;
+}>;
+"blog-en": Record<string, {
+  id: string;
+  collection: "blog-en";
+  data: any;
+}>;
+"blog-es": Record<string, {
+  id: string;
+  collection: "blog-es";
+  data: any;
+}>;
+"projects": Record<string, {
+  id: string;
+  collection: "projects";
+  data: any;
+}>;
+"projects-en": Record<string, {
+  id: string;
+  collection: "projects-en";
+  data: any;
+}>;
+"projects-es": Record<string, {
+  id: string;
+  collection: "projects-es";
+  data: any;
+}>;
+
 	};
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
