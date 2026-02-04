@@ -1,0 +1,366 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  return ["es", "en"].map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.params.lang ?? "es";
+const isEs = locale === "es";
+
+const content = isEs
+  ? {
+      systemLines: [
+        "Operador Red Team enfocado en simulaciones APT.",
+        "Adversary emulation bajo MITRE ATT&CK.",
+        "Tooling ofensivo en C#, Go, Python y C.",
+      ],
+      skills: [
+        "Adversary emulation y operaciones Red Team",
+        "Active Directory: rutas de ataque y persistencia",
+        "Evasion y validacion de controles EDR",
+        "Tooling y automatizacion ofensiva",
+        "Pentesting web y mobile (OWASP / NIST)",
+      ],
+      achievements: [
+        "2022–presente: Senior Cybersecurity Consultant @ Cipherbit",
+        "2023–2024: Instructor de Forense Digital y Ciberseguridad @ U-tad",
+        "2019–presente: HTB, Root-Me y TryHackMe (CTF & labs)",
+      ],
+      profileTitle: "Perfil",
+      profileBody:
+        "Consultor de ciberseguridad ofensiva especializado en operaciones Red Team sobre infraestructuras criticas. Diseno tooling custom para automatizar post-exploitation, evaluar controles y simular TTPs reales con foco en impacto y stealth.",
+      headings: {
+        system: "Informacion del sistema",
+        achievements: "Logros",
+        liveOps: "Ops en vivo",
+        skills: "Habilidades",
+        certs: "Certificaciones",
+        connect: "Contacto",
+        badges: "Insignias",
+      },
+      skillsNote: "Aprendiendo siempre, adaptandome siempre. OPSEC primero.",
+      liveOpsMain: "Esperando input del operador. Ventana de beacon estable.",
+      liveOpsSub: "Usa canal seguro para coordinacion. Ops ruidosas aisladas.",
+      connect: [
+        {
+          label: "Email",
+          value: "maindavis.sec@gmail.com",
+          href: "mailto:maindavis.sec@gmail.com",
+        },
+        {
+          label: "Telefono",
+          value: "+34 655 150 772",
+          href: "tel:+34655150772",
+        },
+        {
+          label: "GitHub",
+          value: "github.com/MainDavis",
+          href: "https://github.com/MainDavis",
+        },
+        {
+          label: "LinkedIn",
+          value: "linkedin.com/in/maindavis",
+          href: "https://www.linkedin.com/in/maindavis",
+        },
+      ],
+      badges: ["Red Teamer", "Simulacion APT", "Tooling Dev", "Ponente"],
+      verifyLabel: "Verificar credencial",
+    }
+  : {
+      systemLines: [
+        "Red Team operator focused on APT simulations.",
+        "Adversary emulation under MITRE ATT&CK.",
+        "Offensive tooling in C#, Go, Python, and C.",
+      ],
+      skills: [
+        "Adversary emulation and Red Team operations",
+        "Active Directory: attack paths and persistence",
+        "EDR evasion and control validation",
+        "Offensive tooling and automation",
+        "Web and mobile pentesting (OWASP / NIST)",
+      ],
+      achievements: [
+        "2022–present: Senior Cybersecurity Consultant @ Cipherbit",
+        "2023–2024: Digital Forensics and Cybersecurity Instructor @ U-tad",
+        "2019–present: HTB, Root-Me and TryHackMe (CTF & labs)",
+      ],
+      profileTitle: "Profile",
+      profileBody:
+        "Offensive cybersecurity consultant specialized in Red Team operations over critical infrastructures. I design custom tooling to automate post-exploitation, validate controls, and emulate real TTPs with a focus on impact and stealth.",
+      headings: {
+        system: "System Information",
+        achievements: "Achievements",
+        liveOps: "Live Ops",
+        skills: "Skills",
+        certs: "Certifications",
+        connect: "Connect",
+        badges: "Badges",
+      },
+      skillsNote: "Always learning, always adapting. OPSEC first.",
+      liveOpsMain: "Listening for operator input. Beacon window stable.",
+      liveOpsSub: "Use secure channel for coordination. Noisy ops are sandboxed.",
+      connect: [
+        {
+          label: "Email",
+          value: "maindavis.sec@gmail.com",
+          href: "mailto:maindavis.sec@gmail.com",
+        },
+        {
+          label: "Phone",
+          value: "+34 655 150 772",
+          href: "tel:+34655150772",
+        },
+        {
+          label: "GitHub",
+          value: "github.com/MainDavis",
+          href: "https://github.com/MainDavis",
+        },
+        {
+          label: "LinkedIn",
+          value: "linkedin.com/in/maindavis",
+          href: "https://www.linkedin.com/in/maindavis",
+        },
+      ],
+      badges: ["Red Teamer", "APT Simulation", "Tooling Dev", "Speaker"],
+      verifyLabel: "Verify credential",
+    };
+
+const certifications = [
+  {
+    name: "OSCP+",
+    issuer: "Offensive Security",
+    verifyUrl: "https://credentials.offsec.com/25cc8950-8f5d-46e1-86c9-4f28d09badea",
+  },
+  {
+    name: "eJPTv2",
+    issuer: "INE / eLearnSecurity",
+    verifyUrl: "https://certs.ine.com/843c30b4-3665-482b-9f3b-cb57394b8edd",
+  },
+  {
+    name: "Certified Red Team Operations Management (CRTOM)",
+    issuer: "Red Team Leaders",
+    verifyUrl: "https://courses.redteamleaders.com/exam-completion/26798da1c531d3b0",
+  },
+];
+---
+
+<BaseLayout title="~/about | Red Team Profile">
+  <section class="mx-auto w-full max-w-5xl space-y-6">
+    <div class="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+      <div class="space-y-6">
+        <div class="panel border-glow rounded-md overflow-hidden">
+          <div class="flex items-center justify-between border-b border-terminal-border/70 bg-black/60 px-4 py-2">
+            <span class="text-xs uppercase tracking-[0.25em] text-terminal-green text-glow-strong">
+              /home/maindavis/system
+            </span>
+          </div>
+          <div class="px-5 py-4 text-terminal-light/90">
+            <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/80">
+              {content.headings.system}
+            </h2>
+            <div class="mt-3 space-y-2 text-sm">
+              {content.systemLines.map((line) => (
+                <p>{line}</p>
+              ))}
+            </div>
+          </div>
+          <div class="border-t border-terminal-border/70 bg-black/60 px-4 py-2 text-xs text-terminal-green text-glow-strong">
+            [MainDavis@system] ~$ whoami
+          </div>
+        </div>
+
+        <div class="panel border-glow rounded-md overflow-hidden">
+          <div class="flex items-center justify-between border-b border-terminal-border/70 bg-black/60 px-4 py-2">
+            <span class="text-xs uppercase tracking-[0.25em] text-terminal-green text-glow-strong">
+              /home/maindavis/profile
+            </span>
+          </div>
+          <div class="px-5 py-5 text-terminal-light/90">
+            <div class="grid gap-5 md:grid-cols-[200px_1fr] md:items-center">
+              <div class="border-glow rounded-md bg-black/40 p-2">
+                <img
+                  src="/images/profile.jpg"
+                  alt="Retrato de MainDavis"
+                  class="h-52 w-full rounded-md object-cover grayscale-[0.2]"
+                  loading="lazy"
+                />
+              </div>
+
+              <div>
+                <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/80">
+                  {content.profileTitle}
+                </h2>
+                <p class="mt-3 text-sm">{content.profileBody}</p>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-terminal-border/70 bg-black/60 px-4 py-2 text-xs text-terminal-green text-glow-strong">
+            [MainDavis@system] ~$ cat dossier.md
+          </div>
+        </div>
+
+        <div class="panel border-glow rounded-md overflow-hidden">
+          <div class="flex items-center justify-between border-b border-terminal-border/70 bg-black/60 px-4 py-2">
+            <span class="text-xs uppercase tracking-[0.25em] text-terminal-green text-glow-strong">
+              /home/maindavis/achievements
+            </span>
+          </div>
+          <div class="px-5 py-4 text-terminal-light/90">
+            <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/80">
+              {content.headings.achievements}
+            </h2>
+            <ul class="mt-3 space-y-2 text-sm">
+              {content.achievements.map((item) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-terminal-green/70">›</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="border-t border-terminal-border/70 bg-black/60 px-4 py-2 text-xs text-terminal-green text-glow-strong">
+            [MainDavis@system] ~$ ls --opsec --sort=impact
+          </div>
+        </div>
+
+        <div class="panel border-glow rounded-md overflow-hidden">
+          <div class="flex items-center justify-between border-b border-terminal-border/70 bg-black/60 px-4 py-2">
+            <span class="text-xs uppercase tracking-[0.25em] text-terminal-green text-glow-strong">
+              /home/maindavis/terminal
+            </span>
+          </div>
+          <div class="px-5 py-4 text-terminal-light/90">
+            <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/80">
+              {content.headings.liveOps}
+            </h2>
+            <p class="mt-3 text-sm">{content.liveOpsMain}</p>
+            <p class="mt-2 text-sm text-terminal-light/70">
+              {content.liveOpsSub}
+            </p>
+          </div>
+          <div class="border-t border-terminal-border/70 bg-black/60 px-4 py-2 text-xs text-terminal-green text-glow-strong">
+            [MainDavis@system] ~$ tail -f opsec.log
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="panel border-glow rounded-md overflow-hidden">
+          <div class="flex items-center justify-between border-b border-terminal-border/70 bg-black/60 px-4 py-2">
+            <span class="text-xs uppercase tracking-[0.25em] text-terminal-green text-glow-strong">
+              /home/maindavis/skills
+            </span>
+          </div>
+          <div class="px-5 py-4 text-terminal-light/90">
+            <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/80">
+              {content.headings.skills}
+            </h2>
+            <ul class="mt-3 space-y-2 text-sm">
+              {content.skills.map((skill) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-terminal-green/70">+</span>
+                  <span>{skill}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="mt-3 text-xs text-terminal-green/70">{content.skillsNote}</p>
+          </div>
+          <div class="border-t border-terminal-border/70 bg-black/60 px-4 py-2 text-xs text-terminal-green text-glow-strong">
+            [MainDavis@system] ~$ cat skills.list
+          </div>
+        </div>
+
+        <div class="panel border-glow rounded-md overflow-hidden">
+          <div class="flex items-center justify-between border-b border-terminal-border/70 bg-black/60 px-4 py-2">
+            <span class="text-xs uppercase tracking-[0.25em] text-terminal-green text-glow-strong">
+              /home/maindavis/certs
+            </span>
+          </div>
+          <div class="px-5 py-4 text-terminal-light/90">
+            <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/80">
+              {content.headings.certs}
+            </h2>
+            <ul class="mt-3 space-y-3 text-sm">
+              {certifications.map((certification) => (
+                <li class="rounded-md border border-terminal-cyan/30 bg-black/40 p-3">
+                  <p class="text-terminal-light">{certification.name}</p>
+                  <p class="text-terminal-light/70">{certification.issuer}</p>
+                  <a
+                    class="mt-2 inline-flex text-xs uppercase tracking-[0.25em] text-terminal-green hover:text-terminal-green/70"
+                    href={certification.verifyUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {content.verifyLabel}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="border-t border-terminal-border/70 bg-black/60 px-4 py-2 text-xs text-terminal-green text-glow-strong">
+            [MainDavis@system] ~$ cat certs.index
+          </div>
+        </div>
+
+        <div class="panel border-glow rounded-md overflow-hidden">
+          <div class="flex items-center justify-between border-b border-terminal-border/70 bg-black/60 px-4 py-2">
+            <span class="text-xs uppercase tracking-[0.25em] text-terminal-green text-glow-strong">
+              /home/maindavis/connect
+            </span>
+          </div>
+          <div class="px-5 py-4 text-terminal-light/90">
+            <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/80">
+              {content.headings.connect}
+            </h2>
+            <ul class="mt-3 space-y-3 text-sm">
+              {content.connect.map((item) => (
+                <li class="flex items-start justify-between gap-4 border-b border-terminal-border/60 pb-2 last:border-b-0 last:pb-0">
+                  <span class="text-terminal-light">{item.label}</span>
+                  {item.href ? (
+                    <a
+                      class="text-terminal-green hover:text-terminal-green/70"
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.value}
+                    </a>
+                  ) : (
+                    <span class="text-terminal-green/70">{item.value}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="border-t border-terminal-border/70 bg-black/60 px-4 py-2 text-xs text-terminal-green text-glow-strong">
+            [MainDavis@system] ~$ netstat --quiet
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel border-glow rounded-md overflow-hidden">
+      <div class="flex items-center justify-between border-b border-terminal-border/70 bg-black/60 px-4 py-2">
+        <span class="text-xs uppercase tracking-[0.25em] text-terminal-green text-glow-strong">
+          /home/maindavis/badges
+        </span>
+      </div>
+      <div class="px-5 py-4 text-terminal-light/90">
+        <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/80">
+          {content.headings.badges}
+        </h2>
+        <div class="mt-3 flex flex-wrap gap-2">
+          {content.badges.map((badge) => (
+            <span class="rounded-full border border-terminal-cyan/40 bg-black/50 px-3 py-1 text-xs text-terminal-green">
+              {badge}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div class="border-t border-terminal-border/70 bg-black/60 px-4 py-2 text-xs text-terminal-green text-glow-strong">
+        [MainDavis@system] ~$ echo $badges
+      </div>
+    </div>
+  </section>
+</BaseLayout>

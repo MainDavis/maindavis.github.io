@@ -1,9 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import WikiLayout from "../../../layouts/WikiLayout.astro";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("projects");
+  const entries = await getCollection("projectsEs");
   const subPages = entries.filter(
     (entry) => entry.slug.includes("/") && !entry.slug.endsWith("/index")
   );
@@ -12,49 +11,21 @@ export async function getStaticPaths() {
     const [project, ...rest] = entry.slug.split("/");
     return {
       params: { project, slug: rest.join("/") },
-      props: { entry, project },
     };
   });
 }
 
-const { entry, project } = Astro.props;
-const slugParam = Array.isArray(Astro.params.slug)
+const slug = Array.isArray(Astro.params.slug)
   ? Astro.params.slug.join("/")
   : Astro.params.slug;
-const allEntries = await getCollection("projects");
-const normalizeSlug = (slug) => slug.replace(/\/index$/, "");
-const projectEntries = allEntries.filter(
-  (item) =>
-    normalizeSlug(item.slug) === project || item.slug.startsWith(`${project}/`)
-);
-
-const navItems = projectEntries
-  .map((item) => {
-    const normalized = normalizeSlug(item.slug);
-    const isIndex = normalized === project;
-    const slugPart = isIndex ? "" : normalized.slice(project.length + 1);
-    const labelBase = item.data.title ?? (isIndex ? "Overview" : slugPart);
-    const label = labelBase.replace(/-/g, " ");
-    const segmentLabels = slugPart ? slugPart.split("/").map((part) => part.replace(/-/g, " ")) : [];
-    return {
-      href: isIndex ? `/arsenal/${project}` : `/arsenal/${project}/${slugPart}`,
-      label,
-      segmentLabels,
-      isIndex,
-      order: item.data.order ?? 999,
-      sortKey: slugPart || "index",
-    };
-  })
-  .sort((a, b) => (a.order !== b.order ? a.order - b.order : a.sortKey.localeCompare(b.sortKey)));
-
-const { Content } = await entry.render();
+const target = `/es/arsenal/${Astro.params.project}/${slug}`;
 ---
 
-<WikiLayout
-  title={entry.data.title}
-  project={project}
-  navItems={navItems}
-  currentPath={`/arsenal/${project}/${slugParam}`}
->
-  <Content />
-</WikiLayout>
+<html lang="es">
+  <head>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Redirecting...</title>
+  </head>
+  <body>Redirecting...</body>
+</html>

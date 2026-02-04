@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const locales = ["es", "en"];
+  const paths = [];
+
+  for (const locale of locales) {
+    const collection = locale === "es" ? "blogEs" : "blogEn";
+    const posts = await getCollection(collection);
+    posts.forEach((post) => {
+      paths.push({
+        params: { lang: locale, slug: post.slug },
+      });
+    });
+  }
+
+  return paths;
+}
+
+const locale = Astro.params.lang ?? "es";
+const slug = Array.isArray(Astro.params.slug)
+  ? Astro.params.slug.join("/")
+  : Astro.params.slug;
+const target = `/${locale}/blog/${slug}`;
+---
+
+<html lang={locale}>
+  <head>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Redirecting...</title>
+  </head>
+  <body>Redirecting...</body>
+</html>

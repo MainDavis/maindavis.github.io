@@ -1,0 +1,94 @@
+---
+import { Image } from "astro:assets";
+
+const {
+  href,
+  title,
+  description,
+  tags = [],
+  image,
+  variant = "blog",
+  locale = "es",
+  meta,
+  compact = false,
+  tone = "default",
+} = Astro.props;
+
+const isRedTone = tone === "red";
+const badgeLabel =
+  variant === "blog" ? "blog" : locale === "es" ? "proyecto" : "project";
+const badgeClass = isRedTone
+  ? "border-terminal-green/60 text-terminal-green bg-terminal-green/10"
+  : variant === "blog"
+    ? "border-terminal-cyan/60 text-terminal-cyan bg-terminal-cyan/10"
+    : "border-terminal-green/60 text-terminal-green bg-terminal-green/10";
+const cardBorder =
+  variant === "blog"
+    ? "border-terminal-cyan/40 hover:border-terminal-cyan/70"
+    : "border-terminal-green/40 hover:border-terminal-green/70";
+const titleClass = isRedTone
+  ? "text-terminal-green"
+  : variant === "blog"
+    ? "text-terminal-cyan"
+    : "text-terminal-green";
+const metaClass = isRedTone ? "text-terminal-green/70" : "text-terminal-muted/70";
+const descriptionClass = isRedTone ? "text-terminal-green/80" : "text-terminal-light/80";
+const tagClass = isRedTone
+  ? "text-terminal-green/80 border-terminal-green/40"
+  : "text-terminal-light/80 border-terminal-border";
+const emptyTagsClass = isRedTone ? "text-terminal-green/60" : "text-terminal-muted/60";
+const emptyTagsLabel = locale === "es" ? "sin tags" : "no tags";
+
+const fallbackImage =
+  variant === "blog" ? "/images/fallback-blog.svg" : "/images/fallback-project.svg";
+const resolvedImage = image ?? fallbackImage;
+const isStringImage = typeof resolvedImage === "string";
+---
+
+<a
+  href={href}
+  class={`panel overflow-hidden rounded-md transition ${cardBorder}`}
+>
+  <div class="card-media">
+    {isStringImage ? (
+      <img
+        src={resolvedImage}
+        alt={title}
+        loading="lazy"
+      />
+    ) : (
+      <Image
+        src={resolvedImage}
+        alt={title}
+        loading="lazy"
+      />
+    )}
+  </div>
+  <div class={compact ? "px-4 py-3" : "px-5 py-4"}>
+    <div class="flex items-center justify-between text-xs">
+      <span
+        class={`inline-flex items-center rounded-full border px-2 py-0.5 uppercase tracking-[0.2em] ${badgeClass}`}
+      >
+        {badgeLabel}
+      </span>
+      {meta && <span class={metaClass}>{meta}</span>}
+    </div>
+    <h2
+      class={`mt-2 text-lg text-glow ${titleClass}`}
+    >
+      {title}
+    </h2>
+    {description && <p class={`mt-2 text-sm ${descriptionClass}`}>{description}</p>}
+    <div class="mt-3 flex flex-wrap gap-2 text-xs">
+      {tags.length ? (
+        tags.map((tag) => (
+          <span class={`rounded-full border px-2 py-0.5 ${tagClass}`}>
+            {tag}
+          </span>
+        ))
+      ) : (
+        <span class={emptyTagsClass}>{emptyTagsLabel}</span>
+      )}
+    </div>
+  </div>
+</a>

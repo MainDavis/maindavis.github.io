@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Fallback project cover</title>
+  <desc id="desc">Default image for project cards.</desc>
+  <rect width="1200" height="675" fill="#0b0f14" />
+  <rect x="32" y="32" width="1136" height="611" fill="none" stroke="#ff3131" stroke-width="2" />
+  <text x="64" y="120" fill="#ff3131" font-family="JetBrains Mono, monospace" font-size="44">
+    PROYECTO
+  </text>
+  <text x="64" y="180" fill="#c2d1e3" font-family="JetBrains Mono, monospace" font-size="22">
+    default cover
+  </text>
+</svg>

@@ -1,49 +1,25 @@
 ---
 import { getCollection } from "astro:content";
-import WikiLayout from "../../../layouts/WikiLayout.astro";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("projects");
+  const entries = await getCollection("projectsEs");
   const projectEntries = entries.filter(
     (entry) => !entry.slug.includes("/") || entry.slug.endsWith("/index")
   );
 
   return projectEntries.map((entry) => ({
     params: { project: entry.slug.replace(/\/index$/, "") },
-    props: { entry, project: entry.slug.replace(/\/index$/, "") },
   }));
 }
 
-const { entry, project } = Astro.props;
-const allEntries = await getCollection("projects");
-const normalizeSlug = (slug) => slug.replace(/\/index$/, "");
-const projectEntries = allEntries.filter(
-  (item) =>
-    normalizeSlug(item.slug) === project || item.slug.startsWith(`${project}/`)
-);
-
-const navItems = projectEntries
-  .map((item) => {
-    const normalized = normalizeSlug(item.slug);
-    const isIndex = normalized === project;
-    const slugPart = isIndex ? "" : normalized.slice(project.length + 1);
-    const labelBase = item.data.title ?? (isIndex ? "Overview" : slugPart);
-    const label = labelBase.replace(/-/g, " ");
-    const segmentLabels = slugPart ? slugPart.split("/").map((part) => part.replace(/-/g, " ")) : [];
-    return {
-      href: isIndex ? `/arsenal/${project}` : `/arsenal/${project}/${slugPart}`,
-      label,
-      segmentLabels,
-      isIndex,
-      order: item.data.order ?? 999,
-      sortKey: slugPart || "index",
-    };
-  })
-  .sort((a, b) => (a.order !== b.order ? a.order - b.order : a.sortKey.localeCompare(b.sortKey)));
-
-const { Content } = await entry.render();
+const target = `/es/arsenal/${Astro.params.project}`;
 ---
 
-<WikiLayout title={entry.data.title} project={project} navItems={navItems} currentPath={`/arsenal/${project}`}>
-  <Content />
-</WikiLayout>
+<html lang="es">
+  <head>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Redirecting...</title>
+  </head>
+  <body>Redirecting...</body>
+</html>

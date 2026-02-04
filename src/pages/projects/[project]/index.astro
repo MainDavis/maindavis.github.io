@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("projects");
+  const entries = await getCollection("projectsEs");
   const projectEntries = entries.filter(
     (entry) => !entry.slug.includes("/") || entry.slug.endsWith("/index")
   );
@@ -12,13 +12,13 @@ export async function getStaticPaths() {
   }));
 }
 
-const target = `/arsenal/${Astro.params.project}`;
+const target = `/es/arsenal/${Astro.params.project}`;
 ---
 <html lang="es">
   <head>
     <meta http-equiv="refresh" content={`0; url=${target}`} />
     <link rel="canonical" href={target} />
-    <title>Redireccionando...</title>
+    <title>Redirecting...</title>
   </head>
-  <body>Redireccionando...</body>
+  <body>Redirecting...</body>
 </html>

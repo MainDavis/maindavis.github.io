@@ -1,23 +1,48 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 
-const ITEMS = [
-  { label: "Inicio", href: "/" },
-  { label: "Blog", href: "/blog" },
-  { label: "Arsenal", href: "/arsenal" },
-  { label: "About", href: "/about" },
-  { label: "Proyecto Demo / Setup", href: "/arsenal/proyecto-demo/setup" },
-];
+type Locale = "es" | "en";
 
-export default function SearchModal() {
+const buildItems = (locale: Locale) => {
+  const basePath = locale === "en" ? "/en" : "/es";
+  return [
+    { label: locale === "es" ? "Inicio" : "Home", href: basePath },
+    { label: "Blog", href: `${basePath}/blog` },
+    { label: "Arsenal", href: `${basePath}/arsenal` },
+    { label: locale === "es" ? "Sobre" : "About", href: `${basePath}/about` },
+    {
+      label: locale === "es" ? "Faceless / Setup" : "Faceless / Setup",
+      href: `${basePath}/arsenal/faceless/setup`,
+    },
+  ];
+};
+
+const copy = {
+  es: {
+    quickSearch: "BUSQUEDA RAPIDA",
+    placeholder: "Buscar comando o destino...",
+    noMatches: "Sin resultados",
+    hint: "Ctrl+K para abrir, Esc para cerrar",
+  },
+  en: {
+    quickSearch: "QUICK SEARCH",
+    placeholder: "Search command or destination...",
+    noMatches: "No matches",
+    hint: "Ctrl+K to open, Esc to close",
+  },
+} satisfies Record<Locale, Record<string, string>>;
+
+export default function SearchModal({ locale = "es" }: { locale?: Locale }) {
+  const safeLocale: Locale = locale === "en" ? "en" : "es";
+  const items = useMemo(() => buildItems(safeLocale), [safeLocale]);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
 
   const results = useMemo(() => {
-    if (!query) return ITEMS;
+    if (!query) return items;
     const q = query.toLowerCase();
-    return ITEMS.filter((item) => item.label.toLowerCase().includes(q));
-  }, [query]);
+    return items.filter((item) => item.label.toLowerCase().includes(q));
+  }, [items, query]);
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
@@ -69,13 +94,13 @@ export default function SearchModal() {
           >
             <div className="flex items-center gap-2 text-xs text-terminal-cyan/70">
               <span className="h-2 w-2 rounded-full bg-terminal-green shadow-glow"></span>
-              BUSCADOR RAPIDO
+              {copy[safeLocale].quickSearch}
             </div>
             <input
               autoFocus
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Buscar comando o destino..."
+              placeholder={copy[safeLocale].placeholder}
               className="mt-3 w-full border border-terminal-border bg-terminal-black px-3 py-2 text-sm text-terminal-green outline-none focus:border-terminal-green"
             />
             <div className="mt-3 space-y-2 text-sm">
@@ -91,12 +116,12 @@ export default function SearchModal() {
               ))}
               {!results.length && (
                 <div className="border border-terminal-border px-3 py-2 text-terminal-green/60">
-                  Sin coincidencias
+                  {copy[safeLocale].noMatches}
                 </div>
               )}
             </div>
             <div className="mt-4 text-xs text-terminal-cyan/60">
-              Ctrl+K para abrir, Esc para cerrar
+              {copy[safeLocale].hint}
             </div>
           </motion.div>
         </motion.div>

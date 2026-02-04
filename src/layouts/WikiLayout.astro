@@ -2,7 +2,8 @@
 import BaseLayout from "./BaseLayout.astro";
 import WikiNavNode from "../components/WikiNavNode.astro";
 
-const { title, project, navItems = [], currentPath = "" } = Astro.props;
+const { title, project, navItems = [], currentPath = "", locale = "es" } = Astro.props;
+const isEs = locale === "es";
 
 const buildTree = (items) => {
   const roots = [];
@@ -67,13 +68,15 @@ const tree = sortTree(buildTree(navItems));
   <section class="mx-auto w-full max-w-6xl">
     <div class="panel border-glow rounded-md px-5 py-4">
       <p class="text-xs uppercase tracking-[0.3em] text-terminal-muted/80">
-        {project ? `Proyecto ${project}` : "Wiki"}
+        {project ? `${isEs ? "Proyecto" : "Project"} ${project}` : isEs ? "Wiki" : "Wiki"}
       </p>
       <h1 class="mt-2 text-xl text-terminal-green text-glow">{title}</h1>
     </div>
     <div class="mt-6 grid gap-6 md:grid-cols-[220px,1fr]">
       <aside class="panel border-glow h-fit rounded-md px-4 py-4 text-xs text-terminal-muted/80 md:sticky md:top-6">
-        <div class="mb-3 uppercase tracking-[0.3em]">Sidebar Index</div>
+        <div class="mb-3 uppercase tracking-[0.3em]">
+          {isEs ? "Indice" : "Sidebar Index"}
+        </div>
         <nav class="space-y-2 text-sm text-terminal-light/90">
           {tree.map((node) => (
             <WikiNavNode node={node} currentPath={currentPath} />

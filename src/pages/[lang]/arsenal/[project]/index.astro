@@ -1,0 +1,72 @@
+---
+import { getCollection } from "astro:content";
+import WikiLayout from "../../../../layouts/WikiLayout.astro";
+
+export async function getStaticPaths() {
+  const locales = ["es", "en"];
+  const paths = [];
+
+  for (const locale of locales) {
+    const collection = locale === "es" ? "projectsEs" : "projectsEn";
+    const entries = await getCollection(collection);
+    const projectEntries = entries.filter(
+      (entry) => !entry.slug.includes("/") || entry.slug.endsWith("/index")
+    );
+
+    projectEntries.forEach((entry) => {
+      paths.push({
+        params: { lang: locale, project: entry.slug.replace(/\/index$/, "") },
+        props: { entry, locale, project: entry.slug.replace(/\/index$/, "") },
+      });
+    });
+  }
+
+  return paths;
+}
+
+const { entry, locale, project } = Astro.props;
+const isEs = locale === "es";
+const collection = isEs ? "projectsEs" : "projectsEn";
+const allEntries = await getCollection(collection);
+const normalizeSlug = (slug) => slug.replace(/\/index$/, "");
+const projectEntries = allEntries.filter(
+  (item) =>
+    normalizeSlug(item.slug) === project || item.slug.startsWith(`${project}/`)
+);
+
+const overviewLabel = isEs ? "Resumen" : "Overview";
+const navItems = projectEntries
+  .map((item) => {
+    const normalized = normalizeSlug(item.slug);
+    const isIndex = normalized === project;
+    const slugPart = isIndex ? "" : normalized.slice(project.length + 1);
+    const labelBase = item.data.title ?? (isIndex ? overviewLabel : slugPart);
+    const label = labelBase.replace(/-/g, " ");
+    const segmentLabels = slugPart
+      ? slugPart.split("/").map((part) => part.replace(/-/g, " "))
+      : [];
+    return {
+      href: isIndex
+        ? `/${locale}/arsenal/${project}`
+        : `/${locale}/arsenal/${project}/${slugPart}`,
+      label,
+      segmentLabels,
+      isIndex,
+      order: item.data.order ?? 999,
+      sortKey: slugPart || "index",
+    };
+  })
+  .sort((a, b) => (a.order !== b.order ? a.order - b.order : a.sortKey.localeCompare(b.sortKey)));
+
+const { Content } = await entry.render();
+---
+
+<WikiLayout
+  title={entry.data.title}
+  project={project}
+  navItems={navItems}
+  currentPath={`/${locale}/arsenal/${project}`}
+  locale={locale}
+>
+  <Content />
+</WikiLayout>

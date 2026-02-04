@@ -1,21 +1,24 @@
 ---
 import { getCollection } from "astro:content";
-import BlogLayout from "../../layouts/BlogLayout.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blogEs");
   return posts.map((post) => ({
     params: { slug: post.slug },
-    props: { post },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const slug = Array.isArray(Astro.params.slug)
+  ? Astro.params.slug.join("/")
+  : Astro.params.slug;
+const target = `/es/blog/${slug}`;
 ---
 
-<BlogLayout title={post.data.title} description={post.data.description}>
-  <article class="space-y-4 text-sm leading-relaxed text-terminal-green/90">
-    <Content />
-  </article>
-</BlogLayout>
+<html lang="es">
+  <head>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Redirecting...</title>
+  </head>
+  <body>Redirecting...</body>
+</html>

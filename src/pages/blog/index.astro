@@ -1,26 +1,12 @@
 ---
-import { getCollection } from "astro:content";
-import BlogLayout from "../../layouts/BlogLayout.astro";
-
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const target = "/es/blog";
 ---
 
-<BlogLayout title="~/blog" description="Blog reciente y reportes de operacion.">
-  <div class="grid gap-4">
-    {posts.map((post) => (
-      <a
-        href={`/blog/${post.slug}`}
-        class="panel border-glow rounded-md px-5 py-4 transition hover:border-terminal-green/60"
-      >
-        <div class="flex items-center justify-between text-xs text-terminal-cyan/70">
-          <span>{post.data.date.toLocaleDateString("es-ES")}</span>
-          <span>{post.data.tags.join(" / ") || "sin etiquetas"}</span>
-        </div>
-        <h2 class="mt-2 text-lg text-terminal-green text-glow">{post.data.title}</h2>
-        <p class="mt-2 text-sm text-terminal-green/70">{post.data.description}</p>
-      </a>
-    ))}
-  </div>
-</BlogLayout>
+<html lang="es">
+  <head>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Redirecting...</title>
+  </head>
+  <body>Redirecting...</body>
+</html>

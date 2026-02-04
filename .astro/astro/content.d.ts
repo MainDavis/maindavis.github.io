@@ -140,36 +140,214 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"blog": {
+		"blog": Record<string, {
+  id: string;
+  slug: string;
+  body: string;
+  collection: "blog";
+  data: any;
+  render(): Render[".md"];
+}>;
+"blog-en": Record<string, {
+  id: string;
+  slug: string;
+  body: string;
+  collection: "blog-en";
+  data: any;
+  render(): Render[".md"];
+}>;
+"blog-es": Record<string, {
+  id: string;
+  slug: string;
+  body: string;
+  collection: "blog-es";
+  data: any;
+  render(): Render[".md"];
+}>;
+"blogEn": {
+"ReflectiveDLLInjection.md": {
+	id: "ReflectiveDLLInjection.md";
+  slug: "reflectivedllinjection";
+  body: string;
+  collection: "blogEn";
+  data: InferEntrySchema<"blogEn">
+} & { render(): Render[".md"] };
 "bienvenida.md": {
 	id: "bienvenida.md";
   slug: "bienvenida";
   body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
+  collection: "blogEn";
+  data: InferEntrySchema<"blogEn">
 } & { render(): Render[".md"] };
 };
-"projects": {
-"proyecto-demo/features.md": {
-	id: "proyecto-demo/features.md";
-  slug: "proyecto-demo/features";
+"blogEs": {
+"ReflectiveDLLInjection.md": {
+	id: "ReflectiveDLLInjection.md";
+  slug: "reflectivedllinjection";
   body: string;
-  collection: "projects";
-  data: InferEntrySchema<"projects">
+  collection: "blogEs";
+  data: InferEntrySchema<"blogEs">
 } & { render(): Render[".md"] };
-"proyecto-demo/index.md": {
-	id: "proyecto-demo/index.md";
-  slug: "proyecto-demo";
+"bienvenida.md": {
+	id: "bienvenida.md";
+  slug: "bienvenida";
   body: string;
-  collection: "projects";
-  data: InferEntrySchema<"projects">
+  collection: "blogEs";
+  data: InferEntrySchema<"blogEs">
 } & { render(): Render[".md"] };
-"proyecto-demo/setup.md": {
-	id: "proyecto-demo/setup.md";
-  slug: "proyecto-demo/setup";
+};
+"projects": Record<string, {
+  id: string;
+  slug: string;
   body: string;
   collection: "projects";
-  data: InferEntrySchema<"projects">
+  data: any;
+  render(): Render[".md"];
+}>;
+"projects-en": Record<string, {
+  id: string;
+  slug: string;
+  body: string;
+  collection: "projects-en";
+  data: any;
+  render(): Render[".md"];
+}>;
+"projects-es": Record<string, {
+  id: string;
+  slug: string;
+  body: string;
+  collection: "projects-es";
+  data: any;
+  render(): Render[".md"];
+}>;
+"projectsEn": {
+"faceless/architecture.md": {
+	id: "faceless/architecture.md";
+  slug: "faceless/architecture";
+  body: string;
+  collection: "projectsEn";
+  data: InferEntrySchema<"projectsEn">
+} & { render(): Render[".md"] };
+"faceless/faq.md": {
+	id: "faceless/faq.md";
+  slug: "faceless/faq";
+  body: string;
+  collection: "projectsEn";
+  data: InferEntrySchema<"projectsEn">
+} & { render(): Render[".md"] };
+"faceless/features.md": {
+	id: "faceless/features.md";
+  slug: "faceless/features";
+  body: string;
+  collection: "projectsEn";
+  data: InferEntrySchema<"projectsEn">
+} & { render(): Render[".md"] };
+"faceless/index.md": {
+	id: "faceless/index.md";
+  slug: "faceless";
+  body: string;
+  collection: "projectsEn";
+  data: InferEntrySchema<"projectsEn">
+} & { render(): Render[".md"] };
+"faceless/opsec.md": {
+	id: "faceless/opsec.md";
+  slug: "faceless/opsec";
+  body: string;
+  collection: "projectsEn";
+  data: InferEntrySchema<"projectsEn">
+} & { render(): Render[".md"] };
+"faceless/overview.md": {
+	id: "faceless/overview.md";
+  slug: "faceless/overview";
+  body: string;
+  collection: "projectsEn";
+  data: InferEntrySchema<"projectsEn">
+} & { render(): Render[".md"] };
+"faceless/setup.md": {
+	id: "faceless/setup.md";
+  slug: "faceless/setup";
+  body: string;
+  collection: "projectsEn";
+  data: InferEntrySchema<"projectsEn">
+} & { render(): Render[".md"] };
+"faceless/troubleshooting.md": {
+	id: "faceless/troubleshooting.md";
+  slug: "faceless/troubleshooting";
+  body: string;
+  collection: "projectsEn";
+  data: InferEntrySchema<"projectsEn">
+} & { render(): Render[".md"] };
+"faceless/usage.md": {
+	id: "faceless/usage.md";
+  slug: "faceless/usage";
+  body: string;
+  collection: "projectsEn";
+  data: InferEntrySchema<"projectsEn">
+} & { render(): Render[".md"] };
+};
+"projectsEs": {
+"faceless/architecture.md": {
+	id: "faceless/architecture.md";
+  slug: "faceless/architecture";
+  body: string;
+  collection: "projectsEs";
+  data: InferEntrySchema<"projectsEs">
+} & { render(): Render[".md"] };
+"faceless/faq.md": {
+	id: "faceless/faq.md";
+  slug: "faceless/faq";
+  body: string;
+  collection: "projectsEs";
+  data: InferEntrySchema<"projectsEs">
+} & { render(): Render[".md"] };
+"faceless/features.md": {
+	id: "faceless/features.md";
+  slug: "faceless/features";
+  body: string;
+  collection: "projectsEs";
+  data: InferEntrySchema<"projectsEs">
+} & { render(): Render[".md"] };
+"faceless/index.md": {
+	id: "faceless/index.md";
+  slug: "faceless";
+  body: string;
+  collection: "projectsEs";
+  data: InferEntrySchema<"projectsEs">
+} & { render(): Render[".md"] };
+"faceless/opsec.md": {
+	id: "faceless/opsec.md";
+  slug: "faceless/opsec";
+  body: string;
+  collection: "projectsEs";
+  data: InferEntrySchema<"projectsEs">
+} & { render(): Render[".md"] };
+"faceless/overview.md": {
+	id: "faceless/overview.md";
+  slug: "faceless/overview";
+  body: string;
+  collection: "projectsEs";
+  data: InferEntrySchema<"projectsEs">
+} & { render(): Render[".md"] };
+"faceless/setup.md": {
+	id: "faceless/setup.md";
+  slug: "faceless/setup";
+  body: string;
+  collection: "projectsEs";
+  data: InferEntrySchema<"projectsEs">
+} & { render(): Render[".md"] };
+"faceless/troubleshooting.md": {
+	id: "faceless/troubleshooting.md";
+  slug: "faceless/troubleshooting";
+  body: string;
+  collection: "projectsEs";
+  data: InferEntrySchema<"projectsEs">
+} & { render(): Render[".md"] };
+"faceless/usage.md": {
+	id: "faceless/usage.md";
+  slug: "faceless/usage";
+  body: string;
+  collection: "projectsEs";
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 };
 

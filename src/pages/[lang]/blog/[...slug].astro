@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+
+export async function getStaticPaths() {
+  const locales = ["es", "en"];
+  const paths = [];
+
+  for (const locale of locales) {
+    const collection = locale === "es" ? "blogEs" : "blogEn";
+    const posts = await getCollection(collection);
+    posts.forEach((post) => {
+      paths.push({
+        params: { lang: locale, slug: post.slug },
+        props: { post },
+      });
+    });
+  }
+
+  return paths;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const heroImage = post.data.image ?? "/images/fallback-blog.svg";
+---
+
+<BlogLayout title={post.data.title} description={post.data.description}>
+  <div class="post-hero border border-terminal-border/70 rounded-md">
+    <img src={heroImage} alt={post.data.title} loading="lazy" />
+  </div>
+  <article class="space-y-4 text-sm leading-relaxed text-terminal-light/90">
+    <Content />
+  </article>
+</BlogLayout>

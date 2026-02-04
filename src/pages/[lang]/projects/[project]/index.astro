@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const locales = ["es", "en"];
+  const paths = [];
+
+  for (const locale of locales) {
+    const collection = locale === "es" ? "projectsEs" : "projectsEn";
+    const entries = await getCollection(collection);
+    const projectEntries = entries.filter(
+      (entry) => !entry.slug.includes("/") || entry.slug.endsWith("/index")
+    );
+    projectEntries.forEach((entry) => {
+      paths.push({
+        params: { lang: locale, project: entry.slug.replace(/\/index$/, "") },
+      });
+    });
+  }
+
+  return paths;
+}
+
+const locale = Astro.params.lang ?? "es";
+const target = `/${locale}/arsenal/${Astro.params.project}`;
+---
+
+<html lang={locale}>
+  <head>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Redirecting...</title>
+  </head>
+  <body>Redirecting...</body>
+</html>

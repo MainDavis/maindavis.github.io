@@ -1,0 +1,224 @@
+---
+import { getCollection } from "astro:content";
+import ContentCard from "../../components/ContentCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Terminal from "../../components/Terminal.astro";
+
+export async function getStaticPaths() {
+  return ["es", "en"].map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.params.lang ?? "es";
+const isEs = locale === "es";
+const blogCollection = isEs ? "blogEs" : "blogEn";
+const projectCollection = isEs ? "projectsEs" : "projectsEn";
+const dateLocale = isEs ? "es-ES" : "en-US";
+
+const posts = (await getCollection(blogCollection))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const allProjects = await getCollection(projectCollection);
+const rootProjects = allProjects.filter(
+  (entry) => !entry.slug.includes("/") || entry.slug.endsWith("/index")
+);
+const projects = rootProjects.slice(0, 3).map((entry) => ({
+  entry,
+  slug: entry.slug.replace(/\/index$/, ""),
+}));
+
+const featuredPosts = (await getCollection(blogCollection)).filter(
+  (post) => post.data.featured
+);
+const featuredProjects = rootProjects
+  .filter((entry) => entry.data.featured)
+  .map((entry) => ({ entry, slug: entry.slug.replace(/\/index$/, "") }));
+const featuredItems = [
+  ...featuredPosts.map((post) => ({ type: "blog", post })),
+  ...featuredProjects.map(({ entry, slug }) => ({ type: "project", entry, slug })),
+].slice(0, 3);
+
+const copy = {
+  title: isEs ? "~/inicio | Operaciones Red Team" : "~/home | Red Team Operations",
+  dossierLabel: isEs
+    ? "DOSSIER_ACTOR_AMENAZA :: [MAINDAVIS]"
+    : "THREAT_ACTOR_DOSSIER :: [MAINDAVIS]",
+  targetName: isEs ? "Nombre objetivo: David Villaverde Avila" : "Target Name: David Villaverde Avila",
+  intro: isEs
+    ? "Consultor Red Team enfocado en simulaciones de adversario y desarrollo de tooling ofensivo para validacion de controles y operaciones encubiertas."
+    : "Red Team consultant focused on adversary simulations and offensive tooling development for control validation and covert operations.",
+  focus: isEs
+    ? "Foco: operaciones red team, simulacion de adversarios, tooling"
+    : "Focus: red team operations, adversary simulation, tooling",
+  comms: "Comms: maindavis.sec@gmail.com",
+  attributesLabel: isEs ? "Atributos de amenaza" : "Threat Attributes",
+  attributes: [
+    isEs ? "Afiliacion: Red Team / Offensive Security" : "Affiliation: Red Team / Offensive Security",
+    isEs ? "Estado: Activo" : "Status: Active",
+    isEs ? "Nivel_riesgo: Critico" : "Risk_Level: Critical",
+  ],
+  terminal: isEs
+    ? "Sesion autorizada. Contexto limitado al perimetro publico. Intel operativa disponible bajo demanda."
+    : "Authorized session. Context limited to the public perimeter. Operational intel available on demand.",
+  topOps: isEs ? "Operaciones clave" : "Top Operations",
+  noHighlights: isEs
+    ? "Sin destacados. Marca items con featured: true."
+    : "No highlights. Mark items with featured: true.",
+  blogFeed: "Blog",
+  arsenal: "Arsenal",
+  viewAll: isEs ? "Ver todo" : "View all",
+};
+---
+
+<BaseLayout title={copy.title}>
+  <section class="mx-auto w-full max-w-6xl space-y-8">
+    <div class="panel border-glow rounded-md px-6 py-6">
+      <div class="text-xs uppercase tracking-[0.3em] text-terminal-green/70">
+        {copy.dossierLabel}
+      </div>
+      <div class="mt-4 grid gap-6 md:grid-cols-[1.6fr,1fr]">
+        <div>
+          <h1
+            class="text-4xl uppercase tracking-[0.2em] text-terminal-green md:text-6xl lg:text-7xl glitch"
+            data-text="MAINDAVIS"
+          >
+            MAINDAVIS
+          </h1>
+          <p class="mt-2 text-sm uppercase tracking-[0.22em] text-terminal-green/60">
+            {copy.targetName}
+          </p>
+          <p class="mt-4 text-base text-terminal-green/90 md:text-lg">
+            {copy.intro}
+          </p>
+          <div class="mt-4 grid gap-2 text-sm text-terminal-green/80">
+            <span>{copy.focus}</span>
+            <span class="flex items-center gap-2">
+              <span class="text-terminal-green">&gt;_</span>
+              {copy.comms}
+            </span>
+          </div>
+        </div>
+        <div class="border border-terminal-border/70 px-4 py-3 text-xs text-terminal-green/80">
+          <div class="text-xs uppercase tracking-[0.3em] text-terminal-green/70">
+            {copy.attributesLabel}
+          </div>
+          <div class="mt-3 grid gap-2 text-sm">
+            {copy.attributes.map((item) => (
+              <span>{item}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <Terminal command="./access_workspace --user MainDavis">
+      <p>{copy.terminal}</p>
+    </Terminal>
+
+    <div class="space-y-6">
+      <div class="panel flex h-full flex-col rounded-md px-6 py-5">
+        <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/70">
+          {copy.topOps}
+        </h2>
+        <div class="mt-5 grid flex-1 gap-4 md:grid-cols-3">
+          {featuredItems.map((item) =>
+            item.type === "blog" ? (
+              <ContentCard
+                href={`/${locale}/blog/${item.post.slug}`}
+                title={item.post.data.title}
+                description={item.post.data.description}
+                tags={item.post.data.tags}
+                image={item.post.data.image}
+                variant="blog"
+                meta={item.post.data.date.toLocaleDateString(dateLocale)}
+                compact
+                tone="red"
+                locale={locale}
+              />
+            ) : (
+              <ContentCard
+                href={`/${locale}/arsenal/${item.slug}`}
+                title={item.entry.data.title}
+                description={item.entry.data.description}
+                tags={item.entry.data.tags}
+                image={item.entry.data.image}
+                variant="project"
+                meta={item.entry.data.status ?? (isEs ? "activo" : "active")}
+                compact
+                tone="red"
+                locale={locale}
+              />
+            )
+          )}
+          {!featuredItems.length && (
+            <div class="border border-terminal-border px-4 py-2 text-terminal-muted/70">
+              {copy.noHighlights}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="panel flex h-full flex-col rounded-md px-6 py-5">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/70">
+              {copy.blogFeed}
+            </h2>
+            <a
+              href={`/${locale}/blog`}
+              class="text-xs text-terminal-green/60 hover:text-terminal-green"
+            >
+              {copy.viewAll}
+            </a>
+          </div>
+          <div class="mt-5 grid flex-1 gap-4">
+            {posts.map((post) => (
+              <ContentCard
+                href={`/${locale}/blog/${post.slug}`}
+                title={post.data.title}
+                description={post.data.description}
+                tags={post.data.tags}
+                image={post.data.image}
+                variant="blog"
+                meta={post.data.date.toLocaleDateString(dateLocale)}
+                compact
+                tone="red"
+                locale={locale}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div class="panel flex h-full flex-col rounded-md px-6 py-5">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm uppercase tracking-[0.3em] text-terminal-green/70">
+              {copy.arsenal}
+            </h2>
+            <a
+              href={`/${locale}/arsenal`}
+              class="text-xs text-terminal-green/60 hover:text-terminal-green"
+            >
+              {copy.viewAll}
+            </a>
+          </div>
+          <div class="mt-5 grid flex-1 gap-4">
+            {projects.map(({ entry, slug }) => (
+              <ContentCard
+                href={`/${locale}/arsenal/${slug}`}
+                title={entry.data.title}
+                description={entry.data.description}
+                tags={entry.data.tags}
+                image={entry.data.image}
+                variant="project"
+                meta={entry.data.status ?? (isEs ? "activo" : "active")}
+                compact
+                tone="red"
+                locale={locale}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

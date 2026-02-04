@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const locales = ["es", "en"];
+  const paths = [];
+
+  for (const locale of locales) {
+    const collection = locale === "es" ? "projectsEs" : "projectsEn";
+    const entries = await getCollection(collection);
+    const subPages = entries.filter(
+      (entry) => entry.slug.includes("/") && !entry.slug.endsWith("/index")
+    );
+
+    subPages.forEach((entry) => {
+      const [project, ...rest] = entry.slug.split("/");
+      paths.push({
+        params: { lang: locale, project, slug: rest.join("/") },
+      });
+    });
+  }
+
+  return paths;
+}
+
+const locale = Astro.params.lang ?? "es";
+const slug = Array.isArray(Astro.params.slug)
+  ? Astro.params.slug.join("/")
+  : Astro.params.slug;
+const target = `/${locale}/arsenal/${Astro.params.project}/${slug}`;
+---
+
+<html lang={locale}>
+  <head>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>Redirecting...</title>
+  </head>
+  <body>Redirecting...</body>
+</html>

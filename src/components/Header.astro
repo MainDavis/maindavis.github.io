@@ -1,35 +1,58 @@
 ---
-const tabs = [
-  { href: "/", label: "~/home" },
-  { href: "/blog", label: "~/blog" },
-  { href: "/arsenal", label: "~/arsenal" },
-  { href: "/about", label: "~/about" },
-];
+const supportedLocales = ["es", "en"];
 const pathname = Astro.url.pathname;
+const segments = pathname.split("/").filter(Boolean);
+const locale = supportedLocales.includes(segments[0]) ? segments[0] : "es";
+const isEs = locale === "es";
+const basePath = `/${locale}`;
+const pathWithoutLocale = supportedLocales.includes(segments[0])
+  ? `/${segments.slice(1).join("/")}`
+  : pathname;
+const normalizedPath = pathWithoutLocale === "/" ? "" : pathWithoutLocale;
+const switchLocale = isEs ? "en" : "es";
+const switchHref = `/${switchLocale}${normalizedPath}`;
+
+const tabs = [
+  { href: basePath, label: isEs ? "~/inicio" : "~/home" },
+  { href: `${basePath}/blog`, label: "~/blog" },
+  { href: `${basePath}/arsenal`, label: "~/arsenal" },
+  { href: `${basePath}/about`, label: isEs ? "~/sobre" : "~/about" },
+];
 ---
 
 <header class="border-b border-terminal-border bg-terminal-black/90">
   <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-8">
     <div class="flex items-center gap-3 text-xs uppercase tracking-[0.3em] text-terminal-muted/80">
       <span class="h-2 w-2 rounded-full bg-terminal-green shadow-glow"></span>
-      SESSION_ACTIVE :: RED_TEAM_ENGAGEMENT
+      {isEs ? "SESION_ACTIVA :: OPERACION_RED_TEAM" : "SESSION_ACTIVE :: RED_TEAM_ENGAGEMENT"}
     </div>
-    <nav class="flex gap-2 text-sm">
-      {tabs.map((tab) => {
-        const isActive = pathname === tab.href || pathname.startsWith(`${tab.href}/`);
-        return (
-          <a
-            href={tab.href}
-            class={`rounded-sm border px-3 py-1 transition ${
-              isActive
-                ? "border-terminal-green text-terminal-green text-glow"
-                : "border-terminal-border text-terminal-muted hover:border-terminal-green hover:shadow-glow-strong"
-            }`}
-          >
-            {tab.label}
-          </a>
-        );
-      })}
-    </nav>
+    <div class="flex flex-wrap items-center gap-3">
+      <nav class="flex gap-2 text-sm">
+        {tabs.map((tab) => {
+          const isHome = tab.href === basePath;
+          const isActive = isHome
+            ? pathname === tab.href || pathname === `${tab.href}/`
+            : pathname === tab.href || pathname.startsWith(`${tab.href}/`);
+          return (
+            <a
+              href={tab.href}
+              class={`rounded-sm border px-3 py-1 transition ${
+                isActive
+                  ? "border-terminal-green text-terminal-green text-glow"
+                  : "border-terminal-border text-terminal-muted hover:border-terminal-green hover:shadow-glow-strong"
+              }`}
+            >
+              {tab.label}
+            </a>
+          );
+        })}
+      </nav>
+      <a
+        href={switchHref}
+        class="rounded-sm border border-terminal-border px-3 py-1 text-xs uppercase tracking-[0.25em] text-terminal-muted transition hover:border-terminal-green hover:text-terminal-green"
+      >
+        {isEs ? "EN" : "ES"}
+      </a>
+    </div>
   </div>
 </header>

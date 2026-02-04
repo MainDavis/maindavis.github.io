@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import ContentCard from "../../../components/ContentCard.astro";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
+
+export async function getStaticPaths() {
+  return ["es", "en"].map((lang) => ({ params: { lang } }));
+}
+
+const locale = Astro.params.lang ?? "es";
+const isEs = locale === "es";
+const projectCollection = isEs ? "projectsEs" : "projectsEn";
+
+const entries = await getCollection(projectCollection);
+const projects = entries
+  .filter((entry) => !entry.slug.includes("/") || entry.slug.endsWith("/index"))
+  .map((entry) => ({ entry, slug: entry.slug.replace(/\/index$/, "") }));
+---
+
+<BlogLayout
+  title="~/arsenal"
+  description={
+    isEs ? "Herramientas ofensivas y utilidades operativas." : "Offensive tools and operational utilities."
+  }
+>
+  <div class="grid gap-6 md:grid-cols-2">
+    {projects.map(({ entry, slug }) => (
+      <ContentCard
+        href={`/${locale}/arsenal/${slug}`}
+        title={entry.data.title}
+        description={entry.data.description}
+        tags={entry.data.tags}
+        image={entry.data.image}
+        variant="project"
+        meta={entry.data.status ?? (isEs ? "en desarrollo" : "in development")}
+        locale={locale}
+      />
+    ))}
+  </div>
+</BlogLayout>
