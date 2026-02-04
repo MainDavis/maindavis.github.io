@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import WikiNavNode from "../components/WikiNavNode.astro";
 
 const { title, project, navItems = [], currentPath = "" } = Astro.props;
 
@@ -59,38 +60,7 @@ const sortTree = (nodes) => {
   return nodes;
 };
 
-const isActiveNode = (node) =>
-  node.href === currentPath || (node.children ?? []).some((child) => isActiveNode(child));
-
 const tree = sortTree(buildTree(navItems));
-
-const renderNode = (node) => {
-  if (node.isLeaf) {
-    return (
-      <a
-        href={node.href}
-        class={`block border px-3 py-2 transition ${
-          node.href === currentPath
-            ? "border-terminal-green text-terminal-green text-glow"
-            : "border-terminal-border text-terminal-light/80 hover:border-terminal-green hover:shadow-glow-strong"
-        }`}
-      >
-        {node.label}
-      </a>
-    );
-  }
-
-  return (
-    <details class="border border-terminal-border/70 px-3 py-2" open={isActiveNode(node)}>
-      <summary class="cursor-pointer list-none text-terminal-muted/90">{node.label}</summary>
-      <div class="mt-2 space-y-2 pl-3">
-        {node.children.map((child) => (
-          <div>{renderNode(child)}</div>
-        ))}
-      </div>
-    </details>
-  );
-};
 ---
 
 <BaseLayout title={title}>
@@ -106,7 +76,7 @@ const renderNode = (node) => {
         <div class="mb-3 uppercase tracking-[0.3em]">Sidebar Index</div>
         <nav class="space-y-2 text-sm text-terminal-light/90">
           {tree.map((node) => (
-            <div>{renderNode(node)}</div>
+            <WikiNavNode node={node} currentPath={currentPath} />
           ))}
         </nav>
       </aside>

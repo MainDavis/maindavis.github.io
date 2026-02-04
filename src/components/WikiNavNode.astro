@@ -1,0 +1,29 @@
+---
+const { node, currentPath = "" } = Astro.props;
+
+const isActiveNode = (entry) =>
+  entry.href === currentPath ||
+  (entry.children ?? []).some((child) => isActiveNode(child));
+---
+
+{node.isLeaf ? (
+  <a
+    href={node.href}
+    class={`block border px-3 py-2 transition ${
+      node.href === currentPath
+        ? "border-terminal-green text-terminal-green text-glow"
+        : "border-terminal-border text-terminal-light/80 hover:border-terminal-green hover:shadow-glow-strong"
+    }`}
+  >
+    {node.label}
+  </a>
+) : (
+  <details class="border border-terminal-border/70 px-3 py-2" open={isActiveNode(node)}>
+    <summary class="cursor-pointer list-none text-terminal-muted/90">{node.label}</summary>
+    <div class="mt-2 space-y-2 pl-3">
+      {node.children.map((child) => (
+        <Astro.self node={child} currentPath={currentPath} />
+      ))}
+    </div>
+  </details>
+)}
