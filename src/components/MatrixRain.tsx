@@ -16,7 +16,7 @@ export default function MatrixRain() {
     let width = 0;
     let height = 0;
     const fontSize = 14;
-    const speed = 0.55;
+    const speed = 0.15;
     let isRunning = true;
 
     const resize = () => {
@@ -35,9 +35,9 @@ export default function MatrixRain() {
 
     const draw = () => {
       if (!isRunning) return;
-      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.06)";
       ctx.fillRect(0, 0, width, height);
-      ctx.fillStyle = "rgba(32, 0, 0, 0.22)";
+      ctx.fillStyle = "rgba(34, 255, 140, 0.65)";
 
       columns.forEach((y, i) => {
         const char = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
@@ -49,6 +49,7 @@ export default function MatrixRain() {
           columns[i] = y + fontSize * speed;
         }
       });
+
       animationFrame = window.requestAnimationFrame(draw);
     };
 
@@ -79,7 +80,7 @@ export default function MatrixRain() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0 opacity-20"
+      className="pointer-events-none fixed inset-0 z-0 opacity-40"
       aria-hidden="true"
     />
   );
