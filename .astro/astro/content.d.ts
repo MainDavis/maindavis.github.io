@@ -148,11 +148,25 @@ declare module 'astro:content' {
   collection: "blogEn";
   data: InferEntrySchema<"blogEn">
 } & { render(): Render[".md"] };
+"weaponizing-nim-advanced-malware-red-team.md": {
+	id: "weaponizing-nim-advanced-malware-red-team.md";
+  slug: "weaponizing-nim-advanced-malware-red-team";
+  body: string;
+  collection: "blogEn";
+  data: InferEntrySchema<"blogEn">
+} & { render(): Render[".md"] };
 };
 "blogEs": {
 "ReflectiveDLLInjection.md": {
 	id: "ReflectiveDLLInjection.md";
   slug: "reflectivedllinjection";
+  body: string;
+  collection: "blogEs";
+  data: InferEntrySchema<"blogEs">
+} & { render(): Render[".md"] };
+"weaponizing-nim-guia-avanzada-malware-red-team.md": {
+	id: "weaponizing-nim-guia-avanzada-malware-red-team.md";
+  slug: "weaponizing-nim-guia-avanzada-malware-red-team";
   body: string;
   collection: "blogEs";
   data: InferEntrySchema<"blogEs">
