@@ -35,6 +35,28 @@ const projectEntries = allEntries.filter(
 );
 
 const overviewLabel = isEs ? "Resumen" : "Overview";
+const groupDefinitions = [
+  { key: "features", label: isEs ? "Capacidades" : "Features", tags: ["features"], order: 2 },
+  { key: "installation", label: isEs ? "Instalacion" : "Installation", tags: ["installation", "setup"], order: 3 },
+  { key: "usage", label: isEs ? "Uso" : "Usage", tags: ["usage"], order: 4 },
+  { key: "opsec", label: "OPSEC", tags: ["opsec", "evasion"], order: 5 },
+  { key: "architecture", label: isEs ? "Arquitectura" : "Architecture", tags: ["architecture"], order: 6 },
+  { key: "support", label: isEs ? "Soporte" : "Support", tags: ["faq", "troubleshooting"], order: 7 },
+  { key: "other", label: isEs ? "Otros" : "Other", tags: [], order: 99 },
+];
+const getGroupMeta = (item) => {
+  if (item.isIndex) {
+    return { groupKey: null, groupLabel: null, groupOrder: null, isPrimary: true };
+  }
+  const tags = item.tags ?? [];
+  const match = groupDefinitions.find((group) => group.tags.some((tag) => tags.includes(tag)));
+  return {
+    groupKey: match?.key ?? "other",
+    groupLabel: match?.label ?? (isEs ? "Otros" : "Other"),
+    groupOrder: match?.order ?? 99,
+    isPrimary: false,
+  };
+};
 const navItems = projectEntries
   .map((item) => {
     const normalized = normalizeSlug(item.slug);
@@ -42,31 +64,61 @@ const navItems = projectEntries
     const slugPart = isIndex ? "" : normalized.slice(project.length + 1);
     const labelBase = item.data.title ?? (isIndex ? overviewLabel : slugPart);
     const label = labelBase.replace(/-/g, " ");
-    const segmentLabels = slugPart
-      ? slugPart.split("/").map((part) => part.replace(/-/g, " "))
-      : [];
+    const groupMeta = getGroupMeta({
+      isIndex,
+      tags: item.data.tags ?? [],
+    });
     return {
       href: isIndex
         ? `/${locale}/arsenal/${project}`
         : `/${locale}/arsenal/${project}/${slugPart}`,
       label,
-      segmentLabels,
       isIndex,
       order: item.data.order ?? 999,
+      tags: item.data.tags ?? [],
+      groupKey: groupMeta.groupKey,
+      groupLabel: groupMeta.groupLabel,
+      groupOrder: groupMeta.groupOrder,
+      isPrimary: groupMeta.isPrimary,
       sortKey: slugPart || "index",
     };
   })
   .sort((a, b) => (a.order !== b.order ? a.order - b.order : a.sortKey.localeCompare(b.sortKey)));
 
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
+
+const currentPath = `/${locale}/arsenal/${project}`;
+const tocItems = (headings ?? [])
+  .filter((heading) => heading.depth >= 2 && heading.depth <= 3)
+  .map((heading) => ({ depth: heading.depth, slug: heading.slug, text: heading.text }));
+
+const flatItems = navItems.filter((item) => item.href);
+const currentIndex = flatItems.findIndex((item) => item.href === currentPath);
+const prev = currentIndex > 0 ? flatItems[currentIndex - 1] : null;
+const next = currentIndex >= 0 && currentIndex < flatItems.length - 1 ? flatItems[currentIndex + 1] : null;
+const breadcrumbs = [
+  { label: isEs ? "Arsenal" : "Arsenal", href: `/${locale}/arsenal` },
+  { label: entry.data.title ?? project, href: currentPath },
+];
 ---
 
 <WikiLayout
   title={entry.data.title}
   project={project}
   navItems={navItems}
-  currentPath={`/${locale}/arsenal/${project}`}
+  currentPath={currentPath}
   locale={locale}
+  breadcrumbs={breadcrumbs}
+  tocItems={tocItems}
+  prevNext={{ prev, next }}
+  meta={{
+    status: entry.data.status,
+    statusLabel: entry.data.statusLabel,
+    version: entry.data.version,
+    lastUpdated: entry.data.lastUpdated,
+    owner: entry.data.owner,
+    tags: entry.data.tags,
+  }}
 >
   <Content />
 </WikiLayout>

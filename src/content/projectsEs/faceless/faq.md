@@ -3,7 +3,10 @@ title: "FAQ"
 description: "Preguntas frecuentes."
 tags: ["faq"]
 order: 9
+lastUpdated: 2026-02-06
 ---
+
+## Preguntas frecuentes
 
 **¿Para que escenarios esta pensado?**  
 Para laboratorios y operaciones con autorizacion explicita donde se requiere baja huella.
@@ -16,3 +19,8 @@ Solo con permiso expreso y procedimientos aprobados. Recomendado siempre en ento
 
 **¿Por que Nim?**  
 Permite control de bajo nivel con sintaxis moderna y facilita ofuscacion en compilacion.
+
+## Ver tambien
+
+- [Troubleshooting](/es/arsenal/faceless/troubleshooting)
+- [Overview](/es/arsenal/faceless/overview)

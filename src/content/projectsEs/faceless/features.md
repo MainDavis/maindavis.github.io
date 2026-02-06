@@ -3,9 +3,10 @@ title: "Features"
 description: "Capacidades principales del tool."
 tags: ["opsec", "features"]
 order: 3
+lastUpdated: 2026-02-06
 ---
 
-Resumen de capacidades principales:
+## Resumen de capacidades
 
 | Feature | Description |
 |---------|-------------|
@@ -15,7 +16,12 @@ Resumen de capacidades principales:
 | Flexible Targeting | Objetivo por PID, nombre o descubrimiento automatico |
 | Quiet Mode | Operacion silenciosa para scripting y automatizacion |
 
-Notas:
+## Notas
 
 - El enfoque es operativo y controlado, priorizando baja huella.
 - La enumeracion busca reducir dependencias y ruido en endpoints.
+
+## Ver tambien
+
+- [OPSEC](/es/arsenal/faceless/opsec)
+- [Architecture](/es/arsenal/faceless/architecture)

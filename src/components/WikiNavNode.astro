@@ -1,29 +1,54 @@
 ---
-const { node, currentPath = "" } = Astro.props;
+const { group, currentPath = "" } = Astro.props;
 
-const isActiveNode = (entry) =>
-  entry.href === currentPath ||
-  (entry.children ?? []).some((child) => isActiveNode(child));
+const isStandalone = group.isStandalone;
+const isActiveGroup =
+  group.href === currentPath ||
+  (group.items ?? []).some((item) => item.href === currentPath);
+const count = (group.items?.length ?? 0) + (group.href ? 1 : 0);
 ---
 
-{node.isLeaf ? (
-  <a
-    href={node.href}
-    class={`block border px-3 py-2 transition ${
-      node.href === currentPath
-        ? "border-terminal-green text-terminal-green text-glow"
-        : "border-terminal-border text-terminal-light/80 hover:border-terminal-green hover:shadow-glow-strong"
-    }`}
-  >
-    {node.label}
-  </a>
-) : (
-  <details class="border border-terminal-border/70 px-3 py-2" open={isActiveNode(node)}>
-    <summary class="cursor-pointer list-none text-terminal-muted/90">{node.label}</summary>
-    <div class="mt-2 space-y-2 pl-3">
-      {node.children.map((child) => (
-        <Astro.self node={child} currentPath={currentPath} />
-      ))}
-    </div>
-  </details>
-)}
+<div class="space-y-2">
+  {isStandalone ? (
+    <a
+      href={group.href}
+      class={`block border px-3 py-2 text-sm uppercase tracking-[0.25em] transition ${
+        group.href === currentPath
+          ? "border-terminal-green text-terminal-green text-glow"
+          : "border-terminal-border text-terminal-light/80 hover:border-terminal-green hover:text-terminal-green"
+      }`}
+    >
+      {group.label}
+    </a>
+  ) : (
+    <>
+      <div class="flex items-center justify-between gap-2 border-b border-terminal-border/40 pb-1 text-xs uppercase tracking-[0.25em]">
+        <span class="text-terminal-muted/80">{group.label}</span>
+        <span
+          class={`rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-[0.2em] ${
+            isActiveGroup ? "border-terminal-green/50 text-terminal-green" : "border-terminal-border/70 text-terminal-muted/70"
+          }`}
+        >
+          {count}
+        </span>
+      </div>
+      <div class="space-y-2 pl-2">
+        {(group.items ?? []).map((item) => {
+          const isActive = item.href === currentPath;
+          return (
+            <a
+              href={item.href}
+              class={`block border-l-2 px-3 py-2 transition ${
+                isActive
+                  ? "border-terminal-green text-terminal-green text-glow"
+                  : "border-terminal-border text-terminal-light/80 hover:border-terminal-green hover:text-terminal-green"
+              }`}
+            >
+              {item.label}
+            </a>
+          );
+        })}
+      </div>
+    </>
+  )}
+</div>

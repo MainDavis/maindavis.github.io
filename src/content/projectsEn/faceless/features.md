@@ -3,9 +3,10 @@ title: "Features"
 description: "Core capabilities."
 tags: ["opsec", "features"]
 order: 3
+lastUpdated: 2026-02-06
 ---
 
-Core capabilities overview:
+## Core capabilities
 
 | Feature | Description |
 |---------|-------------|
@@ -15,7 +16,12 @@ Core capabilities overview:
 | Flexible Targeting | Target by PID, process name, or automatic discovery |
 | Quiet Mode | Silent operation for scripting and automation |
 
-Notes:
+## Notes
 
 - The design prioritizes low footprint and controlled execution.
 - Native enumeration helps reduce external noise and dependencies.
+
+## See also
+
+- [OPSEC](/en/arsenal/faceless/opsec)
+- [Architecture](/en/arsenal/faceless/architecture)

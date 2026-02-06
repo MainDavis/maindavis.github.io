@@ -2,90 +2,290 @@
 import BaseLayout from "./BaseLayout.astro";
 import WikiNavNode from "../components/WikiNavNode.astro";
 
-const { title, project, navItems = [], currentPath = "", locale = "es" } = Astro.props;
+const {
+  title,
+  project,
+  navItems = [],
+  currentPath = "",
+  locale = "es",
+  breadcrumbs = [],
+  tocItems = [],
+  prevNext = {},
+  meta = {},
+} = Astro.props;
 const isEs = locale === "es";
 
-const buildTree = (items) => {
-  const roots = [];
+const groupDefinitions = [
+  {
+    key: "overview",
+    label: isEs ? "Resumen" : "Overview",
+    tags: ["overview"],
+    order: 1,
+  },
+  {
+    key: "features",
+    label: isEs ? "Capacidades" : "Features",
+    tags: ["features"],
+    order: 2,
+  },
+  {
+    key: "installation",
+    label: isEs ? "Instalacion" : "Installation",
+    tags: ["installation", "setup"],
+    order: 3,
+  },
+  {
+    key: "usage",
+    label: isEs ? "Uso" : "Usage",
+    tags: ["usage"],
+    order: 4,
+  },
+  {
+    key: "opsec",
+    label: "OPSEC",
+    tags: ["opsec", "evasion"],
+    order: 5,
+  },
+  {
+    key: "architecture",
+    label: isEs ? "Arquitectura" : "Architecture",
+    tags: ["architecture"],
+    order: 6,
+  },
+  {
+    key: "faq",
+    label: "FAQ",
+    tags: ["faq"],
+    order: 7,
+  },
+  {
+    key: "troubleshooting",
+    label: isEs ? "Solucion de problemas" : "Troubleshooting",
+    tags: ["troubleshooting"],
+    order: 8,
+  },
+  {
+    key: "other",
+    label: isEs ? "Otros" : "Other",
+    tags: [],
+    order: 99,
+  },
+];
+
+const getGroupKey = (item) => {
+  if (item.isIndex) return "overview";
+  const tags = item.tags ?? [];
+  const match = groupDefinitions.find((group) =>
+    group.tags.some((tag) => tags.includes(tag))
+  );
+  return match?.key ?? "other";
+};
+
+const buildGroups = (items) => {
+  const groups = new Map();
+  const standalone = [];
+
+  groupDefinitions.forEach((group) => {
+    groups.set(group.key, {
+      key: group.key,
+      label: group.label,
+      order: group.order,
+      items: [],
+    });
+  });
+
   items.forEach((item) => {
-    if (item.isIndex || !item.segmentLabels?.length) {
-      roots.push({
+    if (item.isIndex) {
+      standalone.push({
         label: item.label,
         href: item.href,
-        children: [],
-        isLeaf: true,
-        order: item.order ?? 999,
+        order: 0,
+        isStandalone: true,
       });
       return;
     }
 
-    let current = roots;
-    item.segmentLabels.forEach((segment, index) => {
-      const isLast = index === item.segmentLabels.length - 1;
-      let node = current.find((entry) => entry.label === segment && !entry.isLeaf);
-      if (!node) {
-        node = {
-          label: segment,
-          href: undefined,
-          children: [],
-          isLeaf: false,
-          order: item.order ?? 999,
-        };
-        current.push(node);
-      } else {
-        node.order = Math.min(node.order ?? 999, item.order ?? 999);
-      }
+    const key = item.groupKey ?? getGroupKey(item);
+    const group =
+      groups.get(key) ??
+      groups.get("other");
+    if (!group) return;
 
-      if (isLast) {
-        node.children.push({
-          label: item.label,
-          href: item.href,
-          children: [],
-          isLeaf: true,
-          order: item.order ?? 999,
-        });
-      } else {
-        current = node.children;
-      }
+    if (item.groupLabel) {
+      group.label = item.groupLabel;
+    }
+    if (Number.isFinite(item.groupOrder)) {
+      group.order = item.groupOrder;
+    }
+
+    group.items.push({
+      label: item.label,
+      href: item.href,
+      order: item.order ?? 999,
     });
   });
-  return roots;
-};
 
-const sortTree = (nodes) => {
-  nodes.sort((a, b) => {
-    const orderDiff = (a.order ?? 999) - (b.order ?? 999);
-    return orderDiff !== 0 ? orderDiff : a.label.localeCompare(b.label);
+  const grouped = Array.from(groups.values())
+    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
+    .map((group) => ({
+      ...group,
+      items: group.items.sort((a, b) => {
+        const orderDiff = (a.order ?? 999) - (b.order ?? 999);
+        return orderDiff !== 0 ? orderDiff : a.label.localeCompare(b.label);
+      }),
+    }))
+    .filter((group) => group.items.length > 0);
+
+  const normalized = grouped.flatMap((group) => {
+    if (group.items.length === 1) {
+      const [onlyItem] = group.items;
+      return [
+        {
+          label: onlyItem.label,
+          href: onlyItem.href,
+          order: group.order ?? 999,
+          isStandalone: true,
+        },
+      ];
+    }
+    return [group];
   });
-  nodes.forEach((node) => node.children && sortTree(node.children));
-  return nodes;
+
+  return [
+    ...standalone,
+    ...normalized,
+  ];
 };
 
-const tree = sortTree(buildTree(navItems));
+const groups = buildGroups(navItems);
+const hasMeta =
+  meta?.status ||
+  meta?.statusLabel ||
+  meta?.version ||
+  meta?.lastUpdated ||
+  meta?.owner ||
+  (meta?.tags && meta.tags.length > 0);
+const formatDate = (value) => {
+  if (!value) return null;
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Intl.DateTimeFormat(isEs ? "es-ES" : "en-US", {
+    dateStyle: "medium",
+  }).format(date);
+};
 ---
 
 <BaseLayout title={title}>
   <section class="mx-auto w-full max-w-6xl">
     <div class="panel border-glow rounded-md px-5 py-4">
-      <p class="text-xs uppercase tracking-[0.3em] text-terminal-muted/80">
-        {project ? `${isEs ? "Proyecto" : "Project"} ${project}` : isEs ? "Wiki" : "Wiki"}
-      </p>
+      <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.3em] text-terminal-muted/80">
+        {(breadcrumbs?.length ? breadcrumbs : []).map((crumb, index) => (
+          <span class="flex items-center gap-2" key={`${crumb.href}-${crumb.label}`}>
+            <a class="hover:text-terminal-green" href={crumb.href}>
+              {crumb.label}
+            </a>
+            {index < breadcrumbs.length - 1 && <span class="text-terminal-border">/</span>}
+          </span>
+        ))}
+      </div>
       <h1 class="mt-2 text-xl text-terminal-green text-glow">{title}</h1>
+      {hasMeta && (
+        <div class="mt-3 flex flex-wrap items-center gap-3 text-xs text-terminal-muted/80">
+          {(meta.statusLabel || meta.status) && (
+            <span class="rounded-full border border-terminal-green/40 bg-black/40 px-3 py-1 uppercase tracking-[0.2em] text-terminal-green">
+              {meta.statusLabel ?? meta.status}
+            </span>
+          )}
+          {meta.version && (
+            <span class="rounded-full border border-terminal-border/70 bg-black/40 px-3 py-1">
+              {isEs ? "Version" : "Version"} {meta.version}
+            </span>
+          )}
+          {meta.owner && (
+            <span class="rounded-full border border-terminal-border/70 bg-black/40 px-3 py-1">
+              {isEs ? "Owner" : "Owner"}: {meta.owner}
+            </span>
+          )}
+          {formatDate(meta.lastUpdated) && (
+            <span class="rounded-full border border-terminal-border/70 bg-black/40 px-3 py-1">
+              {isEs ? "Actualizado" : "Updated"}: {formatDate(meta.lastUpdated)}
+            </span>
+          )}
+          {meta.tags?.length > 0 && (
+            <span class="rounded-full border border-terminal-border/70 bg-black/40 px-3 py-1">
+              {meta.tags.join(" · ")}
+            </span>
+          )}
+        </div>
+      )}
     </div>
-    <div class="mt-6 grid gap-6 md:grid-cols-[220px,1fr]">
+    <div class="mt-6 grid gap-6 md:grid-cols-[220px,1fr,220px]">
       <aside class="panel border-glow h-fit rounded-md px-4 py-4 text-xs text-terminal-muted/80 md:sticky md:top-6">
         <div class="mb-3 uppercase tracking-[0.3em]">
           {isEs ? "Indice" : "Sidebar Index"}
         </div>
-        <nav class="space-y-2 text-sm text-terminal-light/90">
-          {tree.map((node) => (
-            <WikiNavNode node={node} currentPath={currentPath} />
+        <nav class="space-y-4 text-sm text-terminal-light/90">
+          {groups.map((group) => (
+            <WikiNavNode group={group} currentPath={currentPath} />
           ))}
         </nav>
       </aside>
-      <div class="panel border-glow rounded-md px-5 py-5 space-y-4 text-sm leading-relaxed text-terminal-light/90">
-        <slot />
+      <div class="panel border-glow rounded-md px-5 py-5 text-sm leading-relaxed text-terminal-light/90">
+        <article class="wiki-content space-y-4">
+          <slot />
+        </article>
+        {(prevNext?.prev || prevNext?.next) && (
+          <div class="mt-8 grid gap-3 border-t border-terminal-border/60 pt-4 text-sm sm:grid-cols-2">
+            {prevNext?.prev ? (
+              <a
+                class="rounded-md border border-terminal-border/70 bg-black/40 px-4 py-3 transition hover:border-terminal-green hover:text-terminal-green"
+                href={prevNext.prev.href}
+              >
+                <div class="text-xs uppercase tracking-[0.3em] text-terminal-muted/80">
+                  {isEs ? "Anterior" : "Previous"}
+                </div>
+                <div class="mt-1">{prevNext.prev.label}</div>
+              </a>
+            ) : (
+              <div class="hidden sm:block" />
+            )}
+            {prevNext?.next && (
+              <a
+                class="rounded-md border border-terminal-border/70 bg-black/40 px-4 py-3 text-right transition hover:border-terminal-green hover:text-terminal-green"
+                href={prevNext.next.href}
+              >
+                <div class="text-xs uppercase tracking-[0.3em] text-terminal-muted/80">
+                  {isEs ? "Siguiente" : "Next"}
+                </div>
+                <div class="mt-1">{prevNext.next.label}</div>
+              </a>
+            )}
+          </div>
+        )}
       </div>
+      <aside class="panel border-glow h-fit rounded-md px-4 py-4 text-xs text-terminal-muted/80 md:sticky md:top-6">
+        <div class="mb-3 uppercase tracking-[0.3em]">
+          {isEs ? "Contenido" : "On this page"}
+        </div>
+        {tocItems?.length ? (
+          <nav class="space-y-2 text-sm text-terminal-light/90">
+            {tocItems.map((item) => (
+              <a
+                class={`block border border-terminal-border/70 px-3 py-2 transition hover:border-terminal-green hover:text-terminal-green ${
+                  item.depth === 3 ? "ml-3 text-terminal-light/70" : ""
+                }`}
+                href={`#${item.slug}`}
+              >
+                {item.text}
+              </a>
+            ))}
+          </nav>
+        ) : (
+          <p class="text-xs text-terminal-light/70">
+            {isEs ? "Sin secciones detectadas." : "No sections detected."}
+          </p>
+        )}
+      </aside>
     </div>
   </section>
 </BaseLayout>
