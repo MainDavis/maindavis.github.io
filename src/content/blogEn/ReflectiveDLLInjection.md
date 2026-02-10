@@ -4,7 +4,7 @@ date: 2026-02-04
 description: "A deep dive into manual PE mapping using Nim to inject libraries without touching the disk or using standard Windows APIs."
 image: /images/blog/dll_injection.png
 tags: ["red-team", "malware-dev", "nim", "evasion"]
-featured: true
+featured: false
 ---
 
 Reflective DLL Injection has been a staple in the Red Team arsenal for years. However, the days of simply using Stephen Fewer's original technique and expecting to bypass modern EDRs are long gone. Today, we are taking a look at how to implement an advanced version of this technique using Nim, focusing on manual mapping to stay as stealthy as possible.
