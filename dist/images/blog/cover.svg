@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-labelledby="title desc">
+  <title id="title">Blog cover</title>
+  <desc id="desc">Fallback cover for a blog entry.</desc>
+  <rect width="800" height="450" fill="#0b0f14" />
+  <rect x="24" y="24" width="752" height="402" fill="none" stroke="#3dd6d0" stroke-width="2" />
+  <text x="40" y="90" fill="#3dd6d0" font-family="JetBrains Mono, monospace" font-size="32">
+    BLOG_ENTRY
+  </text>
+  <text x="40" y="140" fill="#c2d1e3" font-family="JetBrains Mono, monospace" font-size="18">
+    cover asset
+  </text>
+</svg>

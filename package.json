@@ -10,10 +10,12 @@
     "astro": "node ./node_modules/astro/astro.js"
   },
   "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "astro": "^4.16.0",
     "framer-motion": "^11.0.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "satori": "^0.19.2"
   },
   "devDependencies": {
     "@astrojs/react": "^3.6.0",
