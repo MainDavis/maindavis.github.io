@@ -13,6 +13,14 @@ const locale = supportedLocales.includes(segments[0]) ? segments[0] : "es";
 
 const metaTitle = title.length < 50 ? `${title} | MainDavis Red Team` : title;
 
+// Ocultar Matrix solo al leer una entrada (blog/arsenal) o en proyectos; mantener en selectores
+const blogIdx = segments.indexOf("blog");
+const arsenalIdx = segments.indexOf("arsenal");
+const isReadingBlog = blogIdx >= 0 && blogIdx < segments.length - 1;
+const isReadingArsenal = arsenalIdx >= 0 && arsenalIdx < segments.length - 1;
+const showMatrixBg =
+  !isReadingBlog && !isReadingArsenal && !pathname.includes("/projects");
+
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 let socialImageURL = new URL(image, Astro.site);
 
@@ -61,7 +69,7 @@ if (article) {
     <meta property="twitter:image" content={socialImageURL} />
   </head>
   <body class="min-h-screen">
-    <MatrixRain client:idle />
+    {showMatrixBg && <MatrixRain client:idle />}
     <SearchModal client:idle locale={locale} />
     <div class="relative z-10 flex min-h-screen flex-col">
       <Header />
