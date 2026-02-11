@@ -25,7 +25,7 @@ const { Content } = await post.render();
 const heroImage = post.data.image ?? "/images/fallback-blog.svg";
 ---
 
-<BlogLayout title={post.data.title} description={post.data.description}>
+<BlogLayout title={post.data.title} description={post.data.description} image={heroImage}>
   <div class="post-hero border border-terminal-border/70 rounded-md">
     <img
       src={heroImage}

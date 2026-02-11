@@ -146,14 +146,21 @@ declare module 'astro:content' {
   slug: "reflectivedllinjection";
   body: string;
   collection: "blogEn";
-  data: any
+  data: InferEntrySchema<"blogEn">
+} & { render(): Render[".md"] };
+"WSL2_RedTeam_Evasion.md": {
+	id: "WSL2_RedTeam_Evasion.md";
+  slug: "wsl2_redteam_evasion";
+  body: string;
+  collection: "blogEn";
+  data: InferEntrySchema<"blogEn">
 } & { render(): Render[".md"] };
 "weaponizing-nim-advanced-malware-red-team.md": {
 	id: "weaponizing-nim-advanced-malware-red-team.md";
   slug: "weaponizing-nim-advanced-malware-red-team";
   body: string;
   collection: "blogEn";
-  data: any
+  data: InferEntrySchema<"blogEn">
 } & { render(): Render[".md"] };
 };
 "blogEs": {
@@ -162,14 +169,21 @@ declare module 'astro:content' {
   slug: "reflectivedllinjection";
   body: string;
   collection: "blogEs";
-  data: any
+  data: InferEntrySchema<"blogEs">
+} & { render(): Render[".md"] };
+"WSL2_RedTeam_Evasion.md": {
+	id: "WSL2_RedTeam_Evasion.md";
+  slug: "wsl2_redteam_evasion";
+  body: string;
+  collection: "blogEs";
+  data: InferEntrySchema<"blogEs">
 } & { render(): Render[".md"] };
 "weaponizing-nim-guia-avanzada-malware-red-team.md": {
 	id: "weaponizing-nim-guia-avanzada-malware-red-team.md";
   slug: "weaponizing-nim-guia-avanzada-malware-red-team";
   body: string;
   collection: "blogEs";
-  data: any
+  data: InferEntrySchema<"blogEs">
 } & { render(): Render[".md"] };
 };
 "projectsEn": {
@@ -178,126 +192,126 @@ declare module 'astro:content' {
   slug: "faceless/architecture";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "faceless/faq.md": {
 	id: "faceless/faq.md";
   slug: "faceless/faq";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "faceless/features.md": {
 	id: "faceless/features.md";
   slug: "faceless/features";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "faceless/index.md": {
 	id: "faceless/index.md";
   slug: "faceless";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "faceless/opsec.md": {
 	id: "faceless/opsec.md";
   slug: "faceless/opsec";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "faceless/overview.md": {
 	id: "faceless/overview.md";
   slug: "faceless/overview";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "faceless/setup.md": {
 	id: "faceless/setup.md";
   slug: "faceless/setup";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "faceless/troubleshooting.md": {
 	id: "faceless/troubleshooting.md";
   slug: "faceless/troubleshooting";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "faceless/usage.md": {
 	id: "faceless/usage.md";
   slug: "faceless/usage";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "traveler/architecture.md": {
 	id: "traveler/architecture.md";
   slug: "traveler/architecture";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "traveler/faq.md": {
 	id: "traveler/faq.md";
   slug: "traveler/faq";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "traveler/features.md": {
 	id: "traveler/features.md";
   slug: "traveler/features";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "traveler/index.md": {
 	id: "traveler/index.md";
   slug: "traveler";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "traveler/opsec.md": {
 	id: "traveler/opsec.md";
   slug: "traveler/opsec";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "traveler/overview.md": {
 	id: "traveler/overview.md";
   slug: "traveler/overview";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "traveler/setup.md": {
 	id: "traveler/setup.md";
   slug: "traveler/setup";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "traveler/troubleshooting.md": {
 	id: "traveler/troubleshooting.md";
   slug: "traveler/troubleshooting";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 "traveler/usage.md": {
 	id: "traveler/usage.md";
   slug: "traveler/usage";
   body: string;
   collection: "projectsEn";
-  data: any
+  data: InferEntrySchema<"projectsEn">
 } & { render(): Render[".md"] };
 };
 "projectsEs": {
@@ -306,166 +320,136 @@ declare module 'astro:content' {
   slug: "faceless/architecture";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "faceless/faq.md": {
 	id: "faceless/faq.md";
   slug: "faceless/faq";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "faceless/features.md": {
 	id: "faceless/features.md";
   slug: "faceless/features";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "faceless/index.md": {
 	id: "faceless/index.md";
   slug: "faceless";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "faceless/opsec.md": {
 	id: "faceless/opsec.md";
   slug: "faceless/opsec";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "faceless/overview.md": {
 	id: "faceless/overview.md";
   slug: "faceless/overview";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "faceless/setup.md": {
 	id: "faceless/setup.md";
   slug: "faceless/setup";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "faceless/troubleshooting.md": {
 	id: "faceless/troubleshooting.md";
   slug: "faceless/troubleshooting";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "faceless/usage.md": {
 	id: "faceless/usage.md";
   slug: "faceless/usage";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "traveler/architecture.md": {
 	id: "traveler/architecture.md";
   slug: "traveler/architecture";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "traveler/faq.md": {
 	id: "traveler/faq.md";
   slug: "traveler/faq";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "traveler/features.md": {
 	id: "traveler/features.md";
   slug: "traveler/features";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "traveler/index.md": {
 	id: "traveler/index.md";
   slug: "traveler";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "traveler/opsec.md": {
 	id: "traveler/opsec.md";
   slug: "traveler/opsec";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "traveler/overview.md": {
 	id: "traveler/overview.md";
   slug: "traveler/overview";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "traveler/setup.md": {
 	id: "traveler/setup.md";
   slug: "traveler/setup";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "traveler/troubleshooting.md": {
 	id: "traveler/troubleshooting.md";
   slug: "traveler/troubleshooting";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 "traveler/usage.md": {
 	id: "traveler/usage.md";
   slug: "traveler/usage";
   body: string;
   collection: "projectsEs";
-  data: any
+  data: InferEntrySchema<"projectsEs">
 } & { render(): Render[".md"] };
 };
 
 	};
 
 	type DataEntryMap = {
-		"blog": Record<string, {
-  id: string;
-  collection: "blog";
-  data: any;
-}>;
-"blog-en": Record<string, {
-  id: string;
-  collection: "blog-en";
-  data: any;
-}>;
-"blog-es": Record<string, {
-  id: string;
-  collection: "blog-es";
-  data: any;
-}>;
-"projects": Record<string, {
-  id: string;
-  collection: "projects";
-  data: any;
-}>;
-"projects-en": Record<string, {
-  id: string;
-  collection: "projects-en";
-  data: any;
-}>;
-"projects-es": Record<string, {
-  id: string;
-  collection: "projects-es";
-  data: any;
-}>;
-
+		
 	};
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("../../src/content/config.js");
 }
