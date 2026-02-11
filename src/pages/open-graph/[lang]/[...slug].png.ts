@@ -61,30 +61,32 @@ export async function GET({ props }) {
                                     type: "div",
                                     props: {
                                         style: {
+                                            fontSize: "24px",
+                                            color: "#58a6ff", // terminal blue/cyan
+                                            marginBottom: "20px",
+                                            textTransform: "uppercase",
+                                            letterSpacing: "2px",
+                                        },
+                                        children: `${lang === "es" ? "Artículo" : "Article"} | MainDavis Red Team`,
+                                    },
+                                },
+                                {
+                                    type: "div",
+                                    props: {
+                                        style: {
                                             display: "flex",
                                             flexDirection: "column",
+                                            justifyContent: "center",
+                                            flex: 1, // Take available vertical space
                                         },
                                         children: [
-                                            {
-                                                type: "div",
-                                                props: {
-                                                    style: {
-                                                        fontSize: "24px",
-                                                        color: "#58a6ff", // terminal blue/cyan
-                                                        marginBottom: "20px",
-                                                        textTransform: "uppercase",
-                                                        letterSpacing: "2px",
-                                                    },
-                                                    children: `${lang === "es" ? "Artículo" : "Article"} | MainDavis Red Team`,
-                                                },
-                                            },
                                             {
                                                 type: "h1",
                                                 props: {
                                                     style: {
-                                                        fontSize: "64px",
+                                                        fontSize: "72px", // Increased size for impact
                                                         fontWeight: "bold",
-                                                        color: "#c9d1d9", // terminal text
+                                                        color: "#c9d1d9",
                                                         margin: "0",
                                                         lineHeight: "1.1",
                                                         textShadow: "0 0 20px rgba(88, 166, 255, 0.2)",
@@ -101,24 +103,37 @@ export async function GET({ props }) {
                                         style: {
                                             display: "flex",
                                             justifyContent: "space-between",
-                                            alignItems: "flex-end",
+                                            alignItems: "center",
+                                            width: "100%",
                                             borderTop: "1px solid #30363d",
-                                            paddingTop: "40px",
+                                            paddingTop: "30px",
                                         },
                                         children: [
                                             {
-                                                type: "p",
+                                                type: "div",
                                                 props: {
                                                     style: {
-                                                        fontSize: "28px",
-                                                        color: "#8b949e",
-                                                        margin: "0",
-                                                        maxWidth: "800px",
-                                                        overflow: "hidden",
-                                                        whiteSpace: "nowrap",
-                                                        textOverflow: "ellipsis",
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        backgroundColor: "rgba(63, 185, 80, 0.1)",
+                                                        padding: "10px 20px",
+                                                        borderRadius: "4px",
+                                                        border: "1px solid rgba(63, 185, 80, 0.4)",
                                                     },
-                                                    children: description || "",
+                                                    children: [
+                                                        {
+                                                            type: "span",
+                                                            props: {
+                                                                style: {
+                                                                    fontSize: "28px",
+                                                                    color: "#3fb950", // Green success
+                                                                    fontWeight: "bold",
+                                                                    letterSpacing: "1px",
+                                                                },
+                                                                children: "[+] ACCESS_GRANTED :: READ_MORE",
+                                                            },
+                                                        },
+                                                    ],
                                                 },
                                             },
                                             {
@@ -128,6 +143,7 @@ export async function GET({ props }) {
                                                         fontSize: "24px",
                                                         color: "#58a6ff",
                                                         fontWeight: "bold",
+                                                        opacity: 0.8,
                                                     },
                                                     children: "maindavis.github.io",
                                                 },
